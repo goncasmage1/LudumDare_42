@@ -41,7 +41,7 @@ public class GridCell : MonoBehaviour {
 
     private void Start()
     {
-        PutPlant();
+        //PutPlant();
     }
 
     public void Block()
@@ -108,7 +108,7 @@ public class GridCell : MonoBehaviour {
 
     public void PutPlant()
     {
-        if (plantStage != PlantStage.None) return;
+        if (plantStage != PlantStage.None || block) return;
 
         Unhighlight();
         ShowPlant();
@@ -136,5 +136,6 @@ public class GridCell : MonoBehaviour {
 
         HidePlant();
         ShowTower();
+        Block();
     }
 }
