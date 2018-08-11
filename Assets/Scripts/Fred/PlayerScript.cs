@@ -9,7 +9,6 @@ public class PlayerScript : MonoBehaviour {
     private float rotationZ;
     private Transform canvasRotTransf;
     private Transform regularRotTransf;
-    public int SpellCharges = 0;
     public int weaponSpellHeld = -1;
     [SerializeField] private Animator anim;
     [SerializeField] private float maxSpeed = 5f;
@@ -19,6 +18,12 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] Transform itemSpot;
     [SerializeField] Transform ItemHolder;
     [SerializeField] GameObject HasSpellParticles;
+    [SerializeField] float singleAttackCD = 0.4f;
+    [SerializeField] float singleAttackWaitStart = 0.2f;
+    [SerializeField] float lastAttackCD = 0.6f;
+    [SerializeField] float timeAttackMove = 0.5f;
+    [SerializeField] float speedAttackMultiplier = 3f;
+    private int attackNumber=0;
 
     public GameObject canvas;
     public Sprite swordSprite;
@@ -34,7 +39,7 @@ public class PlayerScript : MonoBehaviour {
     private float startFireTarget = -1f;
     private Image aimTargetImage;
     private Vector2 lastAimDir;
-    private Vector2 lastMoveDir;
+    public Vector3 lastMoveDir;
     private PoolSpawner regularGrenadePS;
     private PoolSpawner pullGrenadePS;
     private PoolSpawner pushGrenadePS;
@@ -117,7 +122,35 @@ public class PlayerScript : MonoBehaviour {
 				}
 				
 			}else{
-				startFireTarget=-1;
+				if (attackNumber > 0)
+                {
+                    float timeSinceFire = Time.time - startFireTarget;
+                    if (timeSinceFire < timeAttackMove)
+                    {
+                        if (rb.velocity.magnitude < maxSpeed * speedAttackMultiplier)
+                        {
+                            rb.AddForce(lastMoveDir * currWalkSpeed);
+                        }
+
+                    }
+                     if(timeSinceFire<singleAttackCD)
+                    {
+                        if (timeSinceFire > singleAttackWaitStart)
+                        {
+                            if (gInput.getFireDown())
+                            {
+                                Fire();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        attackNumber=0;
+                        timeSinceFire = -1;
+                        AttackObj.SetActive(false);
+                        inputDisabled = false;
+                    }
+                }
 				if (startDash!=-1){
 					if (rb.velocity.magnitude<maxSpeed*dashMultiplier){
 						rb.AddForce(lastMoveDir*currWalkSpeed);
@@ -160,10 +193,25 @@ public class PlayerScript : MonoBehaviour {
 		
 	}
 	void Fire(){
-		
-
+        if (attackNumber < 3)
+        {
+            currWalkSpeed = walkSpeed * speedAttackMultiplier;
+            startFireTarget = Time.time;
+            inputDisabled = true;
+            attackNumber++;
+            StartCoroutine("FireCoroutine");
+        }
+        
 
 	}
+    IEnumerator FireCoroutine()
+    {
+        AttackObj.SetActive(false);
+        yield return null;
+        AttackObj.SetActive(true);
+        
+        AttackObj.GetComponent<Animator>().Play("attack"+attackNumber, -1, 0f);
+    }
 
 	void aimTarget(){
 	/*	if (startFireTarget!=-1){

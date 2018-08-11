@@ -9,6 +9,8 @@ public class AISpawner : MonoBehaviour {
     public float SpawnInterval = 6f;
     [Range(0.01f, 1f)]
     public float SpawnIntervalReduction = 0.9f;
+    public PoolSpawner enemyPoolSpawner;
+
 
     public Transform enemyPrefab = null;
     public List<Enemy> enemies = new List<Enemy>();
@@ -26,7 +28,8 @@ public class AISpawner : MonoBehaviour {
         newLocation = Quaternion.Euler(0, Random.Range(0f, 360f), 0) * newLocation;
         newLocation += mapCenter.position;
         newLocation.z = 0;
-        Transform newTransform = Instantiate(enemyPrefab, newLocation * EnemySpawnDistance, Quaternion.identity);
+        GameObject go = enemyPoolSpawner.Spawn(transform, newLocation * EnemySpawnDistance);
+        Transform newTransform = go.transform;
 
         Enemy newEnemy = newTransform.GetComponent<Enemy>();
         if (newEnemy != null)
