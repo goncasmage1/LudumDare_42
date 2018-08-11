@@ -42,7 +42,11 @@ public class TowerCell : MonoBehaviour {
         if (closestTarget != null)
         {
             //and enemy wasn't set, start attacking
-            if (enemyTarget == null) Invoke("AttackTarget", TowerAttackInterval);
+            if (enemyTarget == null)
+            {
+                CancelInvoke("AttackTarget");
+                Invoke("AttackTarget", TowerAttackInterval);
+            }
 
             if (enemyTarget != closestTarget) enemyTarget = closestTarget;
         }

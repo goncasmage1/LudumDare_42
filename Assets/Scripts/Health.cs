@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 
     public float MaxHealth = 100f;
-    private float HealthAmount = 0f;
+    protected float HealthAmount = 0f;
 
     private void Awake()
     {
@@ -17,13 +17,13 @@ public class Health : MonoBehaviour {
         return HealthAmount;
     }
 
-    public void ReceiveDamage(float DamageAmount)
+    virtual public void ReceiveDamage(float DamageAmount)
     {
         HealthAmount -= DamageAmount;
         if (HealthAmount <= 0f) Die();
     }
 
-    public void Regenerate(float RegenAmount)
+    virtual public void Regenerate(float RegenAmount)
     {
         HealthAmount += RegenAmount;
         if (HealthAmount > MaxHealth) HealthAmount = MaxHealth;
