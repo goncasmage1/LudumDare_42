@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private void Awake()
+    {
+        for (int i = 0; i < transform.childCount - 1; i++)
+        {
+            Transform child = transform.GetChild(i);
+            Debug.Log(child.position);
+        }
+    }
+
+    void Start () {
 		
 	}
 }
