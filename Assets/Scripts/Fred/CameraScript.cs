@@ -37,12 +37,9 @@ public class CameraScript : MonoBehaviour {
             {
                 distanceVector.z = distZToIgnore * Mathf.Sign(distanceVector.z);
             }
+            Debug.Log(myOffsettedPosition + " || " + distanceVector + " || " + target.position);
+            myTransform.position = Vector3.Lerp(myOffsettedPosition  + offset, target.position + offset-distanceVector, lerpStrength);
 
-            
-            if (Mathf.Abs(distXToIgnore) > Mathf.Abs(distZToIgnore))
-
-                myTransform.position = Vector3.Lerp(myOffsettedPosition + offset, target.position + offset, lerpStrength);
-        
         }
     }
 }

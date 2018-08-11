@@ -12,7 +12,7 @@ public class EnemyHealth : Health {
     {
         base.ReceiveDamage(DamageAmount);
 
-        transform.GetChild(0).GetChild(0).GetComponent<Image>().fillAmount = HealthAmount / MaxHealth;
+        transform.Find("Canvas/HP/ImageFiller").GetComponent<Image>().fillAmount = HealthAmount / MaxHealth;
         Debug.Log("Damage!");
     }
 

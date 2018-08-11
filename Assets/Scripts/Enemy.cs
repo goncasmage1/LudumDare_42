@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
 
     private bool bConsumedPlant = false;
     public float Speed = 2f;
-
+    private Transform aimRotation;
     public Transform target = null;
 
     private Rigidbody rb = null;
@@ -15,18 +15,19 @@ public class Enemy : MonoBehaviour {
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        aimRotation = transform.Find("AimRotation").GetComponent<Transform>();
     }
 	
 	void Update () {
         if (target == null) return;
 
-        transform.LookAt(target);
-        Quaternion clampedRotation = transform.rotation;
+        aimRotation.LookAt(target);
+        Quaternion clampedRotation = aimRotation.rotation;
         clampedRotation.x = 0;
         clampedRotation.z = 0;
-        transform.rotation = clampedRotation;
+        aimRotation.rotation = clampedRotation;
 
-        rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+        rb.MovePosition(transform.position + aimRotation.forward * Time.deltaTime);
     }
 
     public bool HasConsumedPlant() { return bConsumedPlant; }

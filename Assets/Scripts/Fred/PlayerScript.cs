@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour {
     public Sprite swordSprite;
     public Sprite pickaxeSprite;
     public Sprite flowerSprite;
+    public GameObject AttackObj;
 
 
     public int itemHeld;
@@ -98,13 +99,12 @@ public class PlayerScript : MonoBehaviour {
                 if (aimDir != Vector2.zero) {
                     lastAimDir = aimDir;
                 }
-                Debug.Log(moveDirXY);
                 rotationZ = calcZ(moveDirXY);
                 canvasRotTransf.rotation=Quaternion.Euler(0,0,rotationZ);
-                regularRotTransf.rotation = Quaternion.Euler(-90, rotationZ, 0);
+                regularRotTransf.rotation = Quaternion.Euler(0, rotationZ, 0);
                 if (gInput.getFireDown()) {
-                    
-                    }
+                    Fire();
+                }
                
 
               
@@ -159,7 +159,7 @@ public class PlayerScript : MonoBehaviour {
 			currWalkSpeed=walkSpeed;
 		
 	}
-	void Fire(Vector2 direction){
+	void Fire(){
 		
 
 
