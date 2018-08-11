@@ -27,7 +27,7 @@ public class AISpawner : MonoBehaviour {
         if (newEnemy != null)
         {
             enemies.Add(newEnemy);
-            newEnemy.GetComponent<Health>().spawner = this;
+            newEnemy.GetComponent<EnemyHealth>().spawner = this;
             if (target != null) newEnemy.target = target;
         }
 

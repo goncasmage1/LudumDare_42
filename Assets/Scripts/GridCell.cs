@@ -134,6 +134,8 @@ public class GridCell : MonoBehaviour {
         plantStage = PlantStage.Ready;
         plant.gameObject.SetActive(false);
         plantReady.gameObject.SetActive(true);
+        boxCollider.enabled = true;
+        boxCollider.isTrigger = true;
     }
 
     private void HidePlant()
@@ -141,6 +143,8 @@ public class GridCell : MonoBehaviour {
         plantStage = PlantStage.None;
         plant.gameObject.SetActive(false);
         plantReady.gameObject.SetActive(false);
+        boxCollider.enabled = false;
+        boxCollider.isTrigger = false;
     }
 
     private void ShowTower()

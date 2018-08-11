@@ -6,7 +6,6 @@ public class Health : MonoBehaviour {
 
     public float MaxHealth = 100f;
     private float HealthAmount = 0f;
-    public AISpawner spawner;
 
     private void Awake()
     {
@@ -30,9 +29,8 @@ public class Health : MonoBehaviour {
         if (HealthAmount > MaxHealth) HealthAmount = MaxHealth;
     }
 
-    public void Die()
+    public virtual void Die()
     {
-        if (spawner != null) spawner.EnemyDied(GetComponent<Enemy>());
-        Destroy(gameObject);
+        
     }
 }
