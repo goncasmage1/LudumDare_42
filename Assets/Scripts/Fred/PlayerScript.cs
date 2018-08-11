@@ -20,8 +20,10 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] Transform ItemHolder;
     [SerializeField] GameObject HasSpellParticles;
 
-
-
+    public GameObject canvas;
+    public Sprite swordSprite;
+    public Sprite pickaxeSprite;
+    public Sprite flowerSprite;
 
 
     public int itemHeld;
@@ -62,6 +64,8 @@ public class PlayerScript : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody>();
         //sr=myTransform.Find("SpriteHolder/Body").GetComponent<SpriteRenderer>();
         regularRotTransf = myTransform.Find("AimRotation");
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        if (canvas == null) Debug.LogError("Couldn't find Canvas!");
 
         canvasRotTransf = myTransform.Find("Canvas/AimRotation");
         if (anim != null)
