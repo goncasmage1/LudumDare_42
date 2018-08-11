@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlantGrowthTime: 2
-  PlantToTowerTime: 3
+  PlantToTowerTime: 50
   TowerAttackDistance: 6
   TowerAttackInterval: 3
   TowerDamage: 50

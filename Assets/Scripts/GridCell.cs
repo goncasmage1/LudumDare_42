@@ -12,6 +12,7 @@ public class GridCell : MonoBehaviour {
     private bool highlighted = false;
     private bool isTower = false;
 
+    public float PlantRegenAmount = 40f;
     public float PlantGrowthTime = 10f;
     public float PlantToTowerTime = 20f;
     public float TowerAttackDistance = 6f;
@@ -21,6 +22,7 @@ public class GridCell : MonoBehaviour {
     private PlantStage plantStage = PlantStage.None;
 
     private BoxCollider boxCollider = null;
+    private Transform floor = null;
     private Transform highlight = null;
     private Transform plant = null;
     private Transform plantReady = null;
@@ -37,6 +39,8 @@ public class GridCell : MonoBehaviour {
         spawner = FindObjectOfType<AISpawner>();
         if (spawner == null) Debug.LogError("Couldn't find AISpawner!");
 
+        floor = gameObject.transform.GetChild(0);
+
         highlight = gameObject.transform.GetChild(1);
         highlight.gameObject.SetActive(false);
 
@@ -52,7 +56,7 @@ public class GridCell : MonoBehaviour {
 
     private void Start()
     {
-        ShowTower();
+        //PutPlant();
     }
 
     private void Update()
@@ -127,6 +131,7 @@ public class GridCell : MonoBehaviour {
     {
         plantStage = PlantStage.Growing;
         plant.gameObject.SetActive(true);
+        floor.gameObject.SetActive(false);
     }
 
     private void ShowGrowedPlant()
@@ -145,6 +150,11 @@ public class GridCell : MonoBehaviour {
         plantReady.gameObject.SetActive(false);
         boxCollider.enabled = false;
         boxCollider.isTrigger = false;
+    }
+
+    private void ShowFloor()
+    {
+        floor.gameObject.SetActive(true);
     }
 
     private void ShowTower()
@@ -182,6 +192,7 @@ public class GridCell : MonoBehaviour {
         if (plantStage != PlantStage.Ready) return false;
 
         HidePlant();
+        ShowFloor();
         return true;
     }
 
@@ -201,5 +212,14 @@ public class GridCell : MonoBehaviour {
             enemyTarget.GetComponent<Health>().ReceiveDamage(TowerDamage);
             Invoke("AttackTarget", TowerAttackInterval);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy == null || enemy.HasConsumedPlant()) return;
+
+        enemy.ConsumePlant();
+        HarvestPlant();
     }
 }

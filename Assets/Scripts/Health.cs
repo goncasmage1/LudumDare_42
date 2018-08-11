@@ -31,6 +31,6 @@ public class Health : MonoBehaviour {
 
     public virtual void Die()
     {
-        
+        Vector3 pos = transform.position;
     }
 }

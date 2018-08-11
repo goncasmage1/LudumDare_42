@@ -2947,6 +2947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a332a19f18c3774498ebd9696deed200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapCenter: {fileID: 652304058}
   EnemySpawnDistance: 8
   SpawnInterval: 6
   SpawnIntervalReduction: 0.9
