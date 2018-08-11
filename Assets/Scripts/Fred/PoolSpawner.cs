@@ -16,7 +16,7 @@ public class PoolSpawner : MonoBehaviour {
 		maxSpawns=transform.childCount;
 
 	}
-    public GameObject Spawn(Transform targetParent,float Yoffset)
+    public GameObject Spawn(Transform targetParent,Vector3  position)
     {
         GameObject targetObj = null;
         if (transform.childCount <= 0)
@@ -32,7 +32,7 @@ public class PoolSpawner : MonoBehaviour {
             }
             else
             {
-                targetObj.transform.localPosition =new Vector3(0, Yoffset,0);
+                targetObj.transform.localPosition = position;
                 targetObj.transform.localRotation = Quaternion.identity;
             }
             targetObj.SetActive(true);

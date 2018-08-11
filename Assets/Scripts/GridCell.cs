@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
-//[RequireComponent(typeof(SphereCollider))]
+
 public class GridCell : MonoBehaviour {
 
     enum PlantStage { None, Growing, Ready};
