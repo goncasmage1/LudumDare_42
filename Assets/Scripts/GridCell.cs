@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
+//[RequireComponent(typeof(SphereCollider))]
 public class GridCell : MonoBehaviour {
 
     enum PlantStage { None, Growing, Ready};
@@ -13,6 +14,9 @@ public class GridCell : MonoBehaviour {
 
     public float PlantGrowthTime = 10f;
     public float PlantToTowerTime = 20f;
+    public float TowerAttackDistance = 6f;
+    public float TowerAttackInterval = 3f;
+    public float TowerDamage = 50f;
 
     private PlantStage plantStage = PlantStage.None;
 
@@ -22,9 +26,16 @@ public class GridCell : MonoBehaviour {
     private Transform plantReady = null;
     private Transform tower = null;
 
+    private Enemy enemyTarget = null;
+
+    private AISpawner spawner;
+
     private void Awake () {
         boxCollider = GetComponent<BoxCollider>();
         boxCollider.enabled = false;
+
+        spawner = FindObjectOfType<AISpawner>();
+        if (spawner == null) Debug.LogError("Couldn't find AISpawner!");
 
         highlight = gameObject.transform.GetChild(1);
         highlight.gameObject.SetActive(false);
@@ -41,7 +52,47 @@ public class GridCell : MonoBehaviour {
 
     private void Start()
     {
-        //PutPlant();
+        ShowTower();
+    }
+
+    private void Update()
+    {
+        if (!isTower) return;
+
+        Enemy closestTarget = null;
+        float closestDistance = 0f;
+
+        foreach (Enemy enemy in spawner.enemies)
+        {
+            float distance = (enemy.transform.position - transform.position).magnitude;
+            if (distance <= TowerAttackDistance)
+            {
+                if (closestDistance == 0f || distance < closestDistance)
+                {
+                    closestTarget = enemy;
+                    closestDistance = distance;
+                }
+            }
+        }
+
+        //If found a target
+        if (closestTarget != null)
+        {
+            //and enemy wasn't set, start attacking
+            if (enemyTarget == null) Invoke("AttackTarget", TowerAttackInterval);
+
+            if (enemyTarget != closestTarget) enemyTarget = closestTarget;
+        }
+        //If didn't find a target
+        else
+        {
+            //and enemy is still set, stop attacking
+            if (enemyTarget != null)
+            {
+                enemyTarget = null;
+                CancelInvoke("AttackTarget");
+            }
+        }
     }
 
     public void Block()
@@ -137,5 +188,14 @@ public class GridCell : MonoBehaviour {
         HidePlant();
         ShowTower();
         Block();
+    }
+
+    void AttackTarget()
+    {
+        if (enemyTarget != null)
+        {
+            enemyTarget.GetComponent<Health>().ReceiveDamage(TowerDamage);
+            Invoke("AttackTarget", TowerAttackInterval);
+        }
     }
 }

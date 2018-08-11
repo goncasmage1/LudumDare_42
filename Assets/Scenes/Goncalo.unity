@@ -2952,6 +2952,7 @@ MonoBehaviour:
   SpawnIntervalReduction: 0.9
   enemyPrefab: {fileID: 4150192735264384, guid: 4a9db2c0b17e86b4dad3e26ec1f612e7,
     type: 2}
+  target: {fileID: 883247983}
 --- !u!4 &1333984706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4263126311679706, guid: 56bdfd23659235242bb26ccf7deb195b,
@@ -3026,6 +3027,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4263126311679706, guid: 56bdfd23659235242bb26ccf7deb195b,
     type: 2}
   m_PrefabInternal: {fileID: 1352655006}
+--- !u!1 &1355561482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717539795999426, guid: 56bdfd23659235242bb26ccf7deb195b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804160132}
+--- !u!135 &1355561483
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1355561482}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.73
+  m_Center: {x: 0, y: 0, z: 1.5}
 --- !u!4 &1355561485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4263126311679706, guid: 56bdfd23659235242bb26ccf7deb195b,

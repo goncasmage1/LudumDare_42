@@ -15,10 +15,6 @@ public class Enemy : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
     }
-
-    void Start () {
-		
-	}
 	
 	void Update () {
         if (target == null) return;

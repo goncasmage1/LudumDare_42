@@ -10,7 +10,8 @@ public class AISpawner : MonoBehaviour {
     public float SpawnIntervalReduction = 0.9f;
 
     public Transform enemyPrefab = null;
-    private List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
+    public Transform target;
 
 	void Start () {
         SpawnNewEnemy();
@@ -23,9 +24,19 @@ public class AISpawner : MonoBehaviour {
         Transform newTransform = Instantiate(enemyPrefab, newLocation * EnemySpawnDistance, Quaternion.identity);
 
         Enemy newEnemy = newTransform.GetComponent<Enemy>();
-        if (newEnemy != null) enemies.Add(newEnemy);
+        if (newEnemy != null)
+        {
+            enemies.Add(newEnemy);
+            newEnemy.GetComponent<Health>().spawner = this;
+            if (target != null) newEnemy.target = target;
+        }
 
         SpawnInterval *= SpawnIntervalReduction;
         Invoke("SpawnNewEnemy", SpawnInterval);
+    }
+
+    public void EnemyDied(Enemy deadEnemy)
+    {
+        enemies.Remove(deadEnemy);
     }
 }
