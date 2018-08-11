@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1931915395995346}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1526664676306074
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4272582615601650}
   - component: {fileID: 33386963372963788}
@@ -31,11 +31,12 @@ GameObject:
 --- !u!1 &1931915395995346
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4745058734362938}
+  - component: {fileID: 114662244237150952}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -46,7 +47,7 @@ GameObject:
 --- !u!4 &4272582615601650
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1526664676306074}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
@@ -59,7 +60,7 @@ Transform:
 --- !u!4 &4745058734362938
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1931915395995346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -73,7 +74,7 @@ Transform:
 --- !u!23 &23029602262597820
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1526664676306074}
   m_Enabled: 1
@@ -108,7 +109,21 @@ MeshRenderer:
 --- !u!33 &33386963372963788
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1526664676306074}
   m_Mesh: {fileID: 4300000, guid: 92b8888266cea494f9de10184c20b662, type: 3}
+--- !u!114 &114662244237150952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931915395995346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c32ad34dba44d549af60be915fea5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TowerAttackDistance: 6
+  TowerAttackInterval: 3
+  TowerDamage: 50
