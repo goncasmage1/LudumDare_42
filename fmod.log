@@ -8,7 +8,7 @@
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000000568FB5F8 isAsync 1 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000000005A094548 isAsync 1 updatePeriod 0.02
 [LOG] Thread::initThread                       : Init FMOD Studio update thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
@@ -24,15 +24,15 @@
 [LOG] SystemI::createSound                     : filename = Assets\FMODBanks/Master Bank.bank : mode 02010082
 [LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
 [LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Priority: 1, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
-[LOG] SystemI::createSound                     : setdata soundi = 000000001ADF3A98 : node = 000000001AB95EA0
-[LOG] SystemI::createSound                     : add node to async list : head = 0000000056D9FBE8.  list count = 0
+[LOG] SystemI::createSound                     : setdata soundi = 000000001ADF3A98 : node = 0000000059BFD070
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000056D9F3C8.  list count = 0
 [LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000001ADF3A98
 [LOG] SystemI::createSoundInternal             :     Create name='Assets\FMODBanks/Master Bank.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 3607520
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 13568
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000001AB95FB8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000059BFD188
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
@@ -47,7 +47,7 @@
 [LOG] AsyncThread::threadFunc                  :     done flush
 [LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000001ADF3DF8
 [LOG] SoundI::release                          : LudumDare42 (000000001ADF3A98)
-[LOG] SoundI::release                          :     LudumDare42 (0000000056D9F758)
+[LOG] SoundI::release                          :     LudumDare42 (0000000056DA0118)
 [LOG] SoundI::release                          :     LudumDare42 (000000001ADF3DF8)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.

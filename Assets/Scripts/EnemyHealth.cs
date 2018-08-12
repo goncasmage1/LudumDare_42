@@ -30,7 +30,7 @@ public class EnemyHealth : Health {
 
         Vector3 enemyPosition = transform.position;
 
-        Vector3 clampedLocation = new Vector3(Mathf.Round(enemyPosition.x), 1f, Mathf.Round(enemyPosition.z));
+        Vector3 clampedLocation = new Vector3(Mathf.Round(enemyPosition.x), 0f, Mathf.Round(enemyPosition.z));
         Debug.Log(clampedLocation);
         RaycastHit Hit;
         if (Physics.Raycast(clampedLocation, -Vector3.up, out Hit, 1f, raycastMask))
