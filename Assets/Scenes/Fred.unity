@@ -2175,6 +2175,41 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 846262817}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002492755484306, guid: 8988cd44542b5a8468c48811bcb077fa,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8988cd44542b5a8468c48811bcb077fa, type: 2}
   m_IsPrefabAsset: 0

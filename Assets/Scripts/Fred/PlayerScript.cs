@@ -25,7 +25,6 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] float speedAttackMultiplier = 3f;
     private int attackNumber=0;
 
-    public GameObject canvas;
     public Sprite swordSprite;
     public Sprite pickaxeSprite;
     public Sprite flowerSprite;
@@ -33,9 +32,13 @@ public class PlayerScript : MonoBehaviour {
     private Vector3 directionWhileAttacking;
 
 
+    private GameObject canvas;
+    private Image hpBarImg;
+    private Image itemImage;
+    private Text seedsText;
+
     public int itemHeld;
     private GameObject GameObjectHeld;
-    private Image hpBarImg;
     private float currWalkSpeed;
     private float startFireTarget = -1f;
     private Image aimTargetImage;
@@ -72,6 +75,12 @@ public class PlayerScript : MonoBehaviour {
         regularRotTransf = myTransform.Find("AimRotation");
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (canvas == null) Debug.LogError("Couldn't find Canvas!");
+        hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
+        if (hpBarImg == null) Debug.LogError("Couldn't find Health Bar!");
+        itemImage = canvas.transform.GetChild(1).GetComponent<Image>();
+        if (itemImage == null) Debug.LogError("Couldn't find Item Image!");
+        seedsText = canvas.transform.GetChild(2).GetComponent<Text>();
+        if (seedsText == null) Debug.LogError("Couldn't find Seeds Text!");
 
         canvasRotTransf = myTransform.Find("Canvas/AimRotation");
         if (anim != null)
@@ -193,8 +202,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void setHPBar(){
-		//hpBarImg.fillAmount=HP/maxHP;
-	}
+        hpBarImg.fillAmount = HP / maxHP;
+    }
 	void calcWalkSpeed(){
 		
 			currWalkSpeed=walkSpeed;
@@ -244,6 +253,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public void takeDamage(float damage){
 		HP-=damage;
+        setHPBar();
 		if (HP<=0){
 			Die();
 		}
