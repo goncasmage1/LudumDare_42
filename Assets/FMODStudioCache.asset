@@ -13,12 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114347599094481972}
+<<<<<<< HEAD
   - {fileID: 114848281689354258}
   EditorEvents:
   - {fileID: 114325717532060344}
   MasterBankRef: {fileID: 114848281689354258}
+=======
+  - {fileID: 114221125472375532}
+  EditorEvents:
+  - {fileID: 114325717532060344}
+  MasterBankRef: {fileID: 114221125472375532}
+>>>>>>> 9444c3978d30a8688e224fe2a717ba0804b56694
   StringsBankRef: {fileID: 114347599094481972}
-  stringsBankWriteTime: 636696171131079294
+  stringsBankWriteTime: 636696574747567722
   cacheVersion: 2
 --- !u!114 &114079635262162636
 MonoBehaviour:
@@ -55,7 +62,11 @@ MonoBehaviour:
   FileSizes:
   - Name: 
     Value: 3621088
+<<<<<<< HEAD
   Exists: 0
+=======
+  Exists: 1
+>>>>>>> 9444c3978d30a8688e224fe2a717ba0804b56694
 --- !u!114 &114325717532060344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,7 +81,11 @@ MonoBehaviour:
   Path: event:/Music
   guid: f5e60602901baa499be390ee0b1249eb
   Banks:
+<<<<<<< HEAD
   - {fileID: 114848281689354258}
+=======
+  - {fileID: 114221125472375532}
+>>>>>>> 9444c3978d30a8688e224fe2a717ba0804b56694
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -90,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMODBanks\Master Bank.strings.bank
-  lastModified: 636696171131079294
+  lastModified: 636696574747567722
   LoadResult: 0
   FileSizes:
   - Name: 
