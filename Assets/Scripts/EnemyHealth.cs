@@ -56,6 +56,7 @@ public class EnemyHealth : Health {
             if (enemy.HasConsumedPlant()) SpawnRockAtLocation(clampedLocation);
             else SpawnPoisonAtLocation(clampedLocation);
         }
+        enemy.Die();
         Destroy(gameObject);
     }
 
