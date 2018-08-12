@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Canvas
   - Enemy
+  - DeathCanvas
   layers:
   - Default
   - TransparentFX

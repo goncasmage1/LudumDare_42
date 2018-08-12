@@ -12,62 +12,15 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 114347599094481972}
-<<<<<<< HEAD
-  - {fileID: 114848281689354258}
+  - {fileID: 114144700164117978}
+  - {fileID: 114876372417309434}
   EditorEvents:
-  - {fileID: 114325717532060344}
-  MasterBankRef: {fileID: 114848281689354258}
-=======
-  - {fileID: 114221125472375532}
-  EditorEvents:
-  - {fileID: 114325717532060344}
-  MasterBankRef: {fileID: 114221125472375532}
->>>>>>> 9444c3978d30a8688e224fe2a717ba0804b56694
-  StringsBankRef: {fileID: 114347599094481972}
+  - {fileID: 114018511645894606}
+  MasterBankRef: {fileID: 114876372417309434}
+  StringsBankRef: {fileID: 114144700164117978}
   stringsBankWriteTime: 636696574747567722
   cacheVersion: 2
---- !u!114 &114079635262162636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: C:\Users\Lenovo\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
-  lastModified: 636696171130790028
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 3621088
-  Exists: 1
---- !u!114 &114221125472375532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: D:\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
-  lastModified: 636696574747547868
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 3621088
-<<<<<<< HEAD
-  Exists: 0
-=======
-  Exists: 1
->>>>>>> 9444c3978d30a8688e224fe2a717ba0804b56694
---- !u!114 &114325717532060344
+--- !u!114 &114018511645894606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,11 +34,7 @@ MonoBehaviour:
   Path: event:/Music
   guid: f5e60602901baa499be390ee0b1249eb
   Banks:
-<<<<<<< HEAD
-  - {fileID: 114848281689354258}
-=======
-  - {fileID: 114221125472375532}
->>>>>>> 9444c3978d30a8688e224fe2a717ba0804b56694
+  - {fileID: 114876372417309434}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -93,7 +42,7 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 109732
---- !u!114 &114347599094481972
+--- !u!114 &114144700164117978
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,25 +60,7 @@ MonoBehaviour:
   - Name: 
     Value: 716
   Exists: 1
---- !u!114 &114706934374171500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: C:\Users\Lenovo\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
-  lastModified: 636696171130790028
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 3621088
-  Exists: 1
---- !u!114 &114777736341782120
+--- !u!114 &114876372417309434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,24 +73,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: D:\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
   lastModified: 636696574747547868
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 3621088
-  Exists: 1
---- !u!114 &114848281689354258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: C:\Users\Lenovo\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
-  lastModified: 636696171130790028
   LoadResult: 0
   FileSizes:
   - Name: 

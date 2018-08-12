@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour {
 
 
     private GameObject canvas;
+    private GameObject deathCanvas;
     private Image hpBarImg;
     private Image itemImage;
     private Text seedsText;
@@ -70,13 +71,16 @@ public class PlayerScript : MonoBehaviour {
         lastAimDir = new Vector2(1, 0);
         HP = maxHP;
         myTransform = transform;
-        //anim=gameObject.GetComponent<Animator>();
+        anim = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
         gInput = gameObject.GetComponent<generalInput>();
         rb = gameObject.GetComponent<Rigidbody>();
         //sr=myTransform.Find("SpriteHolder/Body").GetComponent<SpriteRenderer>();
         regularRotTransf = myTransform.Find("AimRotation");
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (canvas == null) Debug.LogError("Couldn't find Canvas!");
+        deathCanvas = GameObject.FindGameObjectWithTag("DeathCanvas");
+        if (deathCanvas == null) Debug.LogError("Couldn't find Death Canvas!");
+        deathCanvas.SetActive(false);
         hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
         if (hpBarImg == null) Debug.LogError("Couldn't find Health Bar!");
         itemImage = canvas.transform.GetChild(1).GetComponent<Image>();
@@ -314,7 +318,8 @@ public class PlayerScript : MonoBehaviour {
 	void Die(){
         inputDisabled = true;
         anim.SetBool("IsDead", true);
-	}
+        deathCanvas.SetActive(true);
+    }
 	float calcZ(Vector2 aimDir){
 		float valZ=rotationZ;
 		if (aimDir!=Vector2.zero){
