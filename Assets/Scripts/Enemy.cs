@@ -7,11 +7,15 @@ public class Enemy : MonoBehaviour {
 
     private bool bConsumedPlant = false;
     private bool bTargetInRange = false;
+    private bool isFlinching = false;
+
     public float Speed = 2f;
     public float Damage = 20f;
     public float AttackDistance = 0.4f;
     public float AttackInitialDelay = 0.2f;
     public float AttackInterval = 0.6f;
+    public float flinchTime = 0.5f;
+
     private Transform aimRotation;
     public Transform target = null;
 
@@ -24,7 +28,7 @@ public class Enemy : MonoBehaviour {
     }
 	
 	void Update () {
-        if (target == null) return;
+        if (target == null || isFlinching) return;
 
         aimRotation.LookAt(target);
         Quaternion clampedRotation = aimRotation.rotation;
@@ -66,5 +70,16 @@ public class Enemy : MonoBehaviour {
         target.GetComponent<PlayerScript>().takeDamage(Damage);
         Invoke("AttackTarget", AttackInterval);
         Debug.Log("Damaged player!");
+    }
+
+    public void Flinch()
+    {
+        isFlinching = true;
+        Invoke("RecoverFromFlinch", flinchTime);
+    }
+
+    void RecoverFromFlinch()
+    {
+        isFlinching = false;
     }
 }

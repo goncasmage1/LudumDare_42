@@ -18,6 +18,8 @@ public class EnemyHealth : Health {
     {
         base.ReceiveDamage(DamageAmount);
 
+        GetComponent<Enemy>().Flinch();
+
         transform.Find("Canvas/HP/ImageFiller").GetComponent<Image>().fillAmount = HealthAmount / MaxHealth;
         Debug.Log("Damage!");
     }

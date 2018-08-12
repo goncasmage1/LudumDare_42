@@ -22,9 +22,11 @@ public class PoisonCell : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Enter!");
         PlayerScript player = other.GetComponent<PlayerScript>();
         if (player == null) return;
 
+        Debug.Log("Passed!");
         victim = player.GetComponent<Health>();
         DoDamage();
     }
