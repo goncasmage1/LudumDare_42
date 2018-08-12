@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 17c2326dc6f342344b330a8a167c42d5
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: Bip001
@@ -72,17 +72,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 'Material #44'
-    second: {fileID: 2100000, guid: c76b9d9d534380644be40488c54ba212, type: 2}
+    second: {fileID: 2100000, guid: 9f3b1a22f24f8cb42bfff4dd7ea20a5b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 'Material #48'
-    second: {fileID: 2100000, guid: a058ec2f3e96c4d47982455bf89cee4a, type: 2}
+    second: {fileID: 2100000, guid: 49e9a0edaaa80434185fd267e113b942, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 'Material #50'
-    second: {fileID: 2100000, guid: 3f21581bfd552a249b5f7e15ac050157, type: 2}
+    second: {fileID: 2100000, guid: 397e9d20e8eb06743878cd8844969242, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -233,7 +233,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -273,6 +273,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.099999994
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

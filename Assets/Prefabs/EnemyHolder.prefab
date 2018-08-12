@@ -1770,6 +1770,9 @@ MonoBehaviour:
   AttackInterruptDistance: 1.4
   AttackInitialDelay: 0.5
   AttackInterval: 1
+  StrongAttackFirstDelay: 0.53
+  StrongAttackSecondDelay: 0.53
+  StrongAttackInterval: 1.6666666
   flinchTime: 0.6666667
   target: {fileID: 0}
 --- !u!136 &136028193566504738

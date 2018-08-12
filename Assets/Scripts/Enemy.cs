@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour {
     public float AttackInterruptDistance = 1.4f;
     public float AttackInitialDelay = 0.5f;
     public float AttackInterval = 1f;
+    public float StrongAttackFirstDelay = 0.53f;
+    public float StrongAttackSecondDelay = 0.53f;
+    public float StrongAttackInterval = 5f / 3f;
     public float flinchTime = 0.66666f;
 
     private Transform aimRotation;
@@ -44,6 +47,7 @@ public class Enemy : MonoBehaviour {
     }
 	
 	void Update () {
+
         if (target == null) return;
         bool busy = isFlinching || bConsumingPlant || isAttacking;
 
@@ -56,19 +60,13 @@ public class Enemy : MonoBehaviour {
             aimRotation.rotation = clampedRotation;
         }
 
-        Debug.Log("Flinching: " + isFlinching);
-        Debug.Log("Attacking: " + isAttacking);
-
         Vector3 position = transform.position;
         if (!bTargetInRange)
         {
             if ((position - target.position).magnitude <= AttackDistance && !busy)
             {
                 bTargetInRange = true;
-                anim.SetBool("Attacking", true);
-                isAttacking = true;
-                Invoke("AttackTarget", AttackInitialDelay);
-                Invoke("FinishAttack", AttackInterval);
+                StartAttacking();
             }
             if (!busy) rb.MovePosition(position + aimRotation.forward * Time.deltaTime);
         }
@@ -103,12 +101,43 @@ public class Enemy : MonoBehaviour {
         bConsumingPlant = false;
     }
 
+    void StartAttacking()
+    {
+        anim.SetBool("Attacking", true);
+        isAttacking = true;
+        if (!bConsumedPlant)
+        {
+            Invoke("AttackTarget", AttackInitialDelay);
+            Invoke("FinishAttack", AttackInterval);
+        }
+        else
+        {
+            Invoke("AttackTargetStrong1", StrongAttackFirstDelay);
+            Invoke("FinishAttack", StrongAttackInterval);
+        }
+    }
+
     void AttackTarget()
     {
-        if (target == null || !bTargetInRange) return;
+        if (!bTargetInRange) return;
         target.GetComponent<PlayerScript>().takeDamage(Damage);
-        Invoke("FinishAttack", AttackInterval-AttackInitialDelay);
         Invoke("AttackTarget", AttackInterval);
+    }
+
+    void AttackTargetStrong1()
+    {
+        if (!bTargetInRange) return;
+        Debug.Log("Attack 1");
+        target.GetComponent<PlayerScript>().takeDamage(Damage);
+        Invoke("AttackTargetStrong2", StrongAttackSecondDelay);
+        Invoke("AttackTargetStrong1", StrongAttackInterval);
+    }
+
+    void AttackTargetStrong2()
+    {
+        if (!bTargetInRange) return;
+        Debug.Log("Attack 2");
+        target.GetComponent<PlayerScript>().takeDamage(Damage);
     }
 
     void FinishAttack()
@@ -122,7 +151,15 @@ public class Enemy : MonoBehaviour {
         Debug.Log("Attack interrupted!");
         bTargetInRange = false;
         anim.SetBool("Attacking", false);
-        CancelInvoke("AttackTarget");
+        if (bConsumedPlant)
+        {
+            CancelInvoke("AttackTarget");
+        }
+        else
+        {
+            CancelInvoke("AttackTargetStrong1");
+            CancelInvoke("AttackTargetStrong2");
+        }
     }
 
     public void Flinch()

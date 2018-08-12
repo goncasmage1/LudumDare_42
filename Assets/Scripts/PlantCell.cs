@@ -17,6 +17,8 @@ public class PlantCell : MonoBehaviour {
 
     public Transform towerPrefab;
 
+    private List<Collider> consumers = new List<Collider>();
+
     public bool IsPlantGrown() { return bGrown; }
 
     private void Awake()
@@ -39,6 +41,12 @@ public class PlantCell : MonoBehaviour {
     public void GrowPlant()
     {
         bGrown = true;
+        if (consumers.Count > 0)
+        {
+            consumers[0].GetComponentInParent<Enemy>().ConsumePlant();
+            Destroy(gameObject, 2f / 3f);
+            return;
+        }
         plant.gameObject.SetActive(false);
         plantReady.gameObject.SetActive(true);
         Invoke("SpawnTower", PlantToTowerTime);
@@ -57,7 +65,22 @@ public class PlantCell : MonoBehaviour {
         Enemy enemy = other.GetComponentInParent<Enemy>();
         if (enemy == null || enemy.HasConsumedPlant()) return;
 
-        enemy.ConsumePlant();
-        Destroy(gameObject);
+        if (bGrown)
+        {
+            enemy.ConsumePlant();
+            Destroy(gameObject, 2f / 3f);
+        }
+        else
+        {
+            consumers.Add(other);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        Enemy enemy = other.GetComponentInParent<Enemy>();
+        if (enemy == null || enemy.HasConsumedPlant()) return;
+
+        consumers.Remove(other);
     }
 }
