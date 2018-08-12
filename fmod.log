@@ -8,7 +8,7 @@
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000000407EE3E8 isAsync 1 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 0000000056D801B8 isAsync 1 updatePeriod 0.02
 [LOG] Thread::initThread                       : Init FMOD Studio update thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
@@ -24,30 +24,30 @@
 [LOG] SystemI::createSound                     : filename = Assets\FMODBanks/Master Bank.bank : mode 02010082
 [LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
 [LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Priority: 1, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
-[LOG] SystemI::createSound                     : setdata soundi = 0000000047468BA8 : node = 00000000008AD630
-[LOG] SystemI::createSound                     : add node to async list : head = 000000001B097838.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000047468BA8
+[LOG] SystemI::createSound                     : setdata soundi = 0000000047469778 : node = 00000000008AC910
+[LOG] SystemI::createSound                     : add node to async list : head = 000000004170E788.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000047469778
 [LOG] SystemI::createSoundInternal             :     Create name='Assets\FMODBanks/Master Bank.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 3607520
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 13568
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000008AD748
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000008ACA28
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             :     Stream 0/1: name='LudumDare42', format=2, channels=2, frequency=48000, lengthbytes=3606496, lengthpcm=5267143, pcmblocksize=0, loopstart=0, loopend=5266284, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999035.
 [LOG] Thread::initThread                       :     Init FMOD file thread. Priority: 1, Stack Size: 16384, Semaphore: No, Sleep Time: 10, Looping: Yes.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000047468BA8
-[LOG] SoundI::getSubSound                      : sound 0000000047468BA8.  Subsound index 0 / 1
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000047469778
+[LOG] SoundI::getSubSound                      : sound 0000000047469778.  Subsound index 0 / 1
 [LOG] SoundI::getSubSound                      : starting non blocking seek and setting sound to not ready state
 [LOG] SoundI::getSubSound                      : finished preparing nonblocking getSubSound seek
 [LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000047468D58
 [LOG] AsyncThread::threadFunc                  :     done setposition
 [LOG] AsyncThread::threadFunc                  :     done flush
 [LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000047468D58
-[LOG] SoundI::release                          : LudumDare42 (0000000047468BA8)
-[LOG] SoundI::release                          :     LudumDare42 (000000001B0988C8)
+[LOG] SoundI::release                          : LudumDare42 (0000000047469778)
+[LOG] SoundI::release                          :     LudumDare42 (000000004170CC38)
 [LOG] SoundI::release                          :     LudumDare42 (0000000047468D58)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.

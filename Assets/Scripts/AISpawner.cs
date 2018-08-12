@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AISpawner : MonoBehaviour {
 
-    public Transform mapCenter;
+    public Vector3 mapCenter = new Vector3(0.5f, 0f, 0.5f);
     public float EnemySpawnDistance = 10f;
     public float SpawnInterval = 6f;
     [Range(0.01f, 1f)]
@@ -18,8 +18,6 @@ public class AISpawner : MonoBehaviour {
     public Transform target;
 
 	void Start () {
-        if (mapCenter == null) Debug.LogError("Null map center!");
-
         SpawnNewEnemy();
         StartCoroutine("reduceCD");
 	}
@@ -28,9 +26,9 @@ public class AISpawner : MonoBehaviour {
     {
         Vector3 newLocation = new Vector3(1f, 0f, 0f);
         newLocation = Quaternion.Euler(0, Random.Range(0f, 360f), 0) * newLocation;
-        newLocation += mapCenter.position;
         newLocation.z = 0;
-        GameObject go = enemyPoolSpawner.Spawn(transform, newLocation * EnemySpawnDistance);
+        Debug.Log(newLocation);
+        GameObject go = enemyPoolSpawner.Spawn(transform, (newLocation * EnemySpawnDistance) + mapCenter);
         Transform newTransform = go.transform;
 
         Enemy newEnemy = newTransform.GetComponent<Enemy>();
