@@ -39,6 +39,7 @@ public class generalInput : MonoBehaviour
     private bool anyButtonUp;
     private bool fireUp;
 	private bool changeWeaponUp;
+    private bool RightActionUp;
 
 
     private Vector2 moveVector;
@@ -79,6 +80,7 @@ public class generalInput : MonoBehaviour
 		fireUp = player.GetButtonUp("Fire");
         UpActionDown = player.GetButtonDown("UpAction");
         RightActionDown = player.GetButtonDown("RightAction");
+        RightActionUp = player.GetButtonDown("RightActionUp");
         BottomActionDown = player.GetButtonDown("BottomAction");
         LeftActionDown = player.GetButtonDown("LeftAction");
 
@@ -172,6 +174,10 @@ public class generalInput : MonoBehaviour
     public bool getFireUp()
     {
         return fireUp;
+    }
+    public bool getRightActionUp()
+    {
+        return RightActionUp;
     }
 	/*public bool getChangeWeaponUp(){
 		return changeWeaponUp;

@@ -13,13 +13,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114347599094481972}
-  - {fileID: 114777736341782120}
+  - {fileID: 114079635262162636}
   EditorEvents:
   - {fileID: 114325717532060344}
-  MasterBankRef: {fileID: 114777736341782120}
+  MasterBankRef: {fileID: 114079635262162636}
   StringsBankRef: {fileID: 114347599094481972}
-  stringsBankWriteTime: 636696574747567722
+  stringsBankWriteTime: 636696171131079294
   cacheVersion: 2
+--- !u!114 &114079635262162636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Lenovo\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
+  lastModified: 636696171130790028
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 3621088
+  Exists: 1
 --- !u!114 &114325717532060344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,7 +52,7 @@ MonoBehaviour:
   Path: event:/Music
   guid: f5e60602901baa499be390ee0b1249eb
   Banks:
-  - {fileID: 114777736341782120}
+  - {fileID: 114079635262162636}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -54,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMODBanks\Master Bank.strings.bank
-  lastModified: 636696574747567722
+  lastModified: 636696171131079294
   LoadResult: 0
   FileSizes:
   - Name: 

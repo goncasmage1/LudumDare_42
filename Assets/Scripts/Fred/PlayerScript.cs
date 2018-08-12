@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] bool AmICraft;
 
 
-
+    private bool isPlacingPlant;
     private int CountBombs = 4;
 
 
@@ -119,7 +119,8 @@ public class PlayerScript : MonoBehaviour {
                 if (gInput.getFireDown()) {
                     Fire();
                 }
-               
+                
+                  
 
               
 				if (gInput.getDashDown()){
@@ -176,7 +177,14 @@ public class PlayerScript : MonoBehaviour {
 
 			}
         }
-		aimTarget();
+        if (gInput.getRightActionDown())
+        {
+            isPlacingPlant = true;
+        }if (gInput.getRightActionUp())
+        {
+
+        }
+        aimTarget();
 		setHPBar();
 
 	}
@@ -214,8 +222,11 @@ public class PlayerScript : MonoBehaviour {
         {
             if (directionWhileAttacking != Vector3.zero)
             {
+                Debug.Log("Last Move Was" +lastMoveDir+" and rotationZ was "+rotationZ +" and directionWhileAttacking is "+directionWhileAttacking);
                 lastMoveDir = directionWhileAttacking;
-                rotationZ = calcZ(lastMoveDir);
+                
+                rotationZ = calcZ(new Vector3(lastMoveDir.x,lastMoveDir.z,0)); 
+                Debug.Log("Now rotationZ is " + rotationZ);
                 canvasRotTransf.rotation = Quaternion.Euler(0, 0, rotationZ);
                 regularRotTransf.rotation = Quaternion.Euler(0, rotationZ, 0);
             }

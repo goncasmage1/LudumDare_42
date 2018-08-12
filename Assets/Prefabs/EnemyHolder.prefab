@@ -425,7 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 2
   Damage: 20
-  AttackDistance: 0.4
+  AttackDistance: 1
   AttackInitialDelay: 0.2
   AttackInterval: 0.6
   target: {fileID: 0}
