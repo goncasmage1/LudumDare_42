@@ -47,4 +47,8 @@ public class OnTriggerPlayerCell : MonoBehaviour {
             currentCell.removeTargeted();
         }
     }
+    public GridCell getCurrentCell()
+    {
+        return currentCell;
+    }
 }

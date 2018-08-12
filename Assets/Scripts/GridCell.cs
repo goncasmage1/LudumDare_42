@@ -7,6 +7,7 @@ public class GridCell : MonoBehaviour {
     MeshRenderer mr;
     public Material materialGreen;
     public Material materialRed;
+    Transform childTransform;
 
     private void Awake () {
         mr = transform.GetChild(0).GetComponent<MeshRenderer>();
@@ -23,5 +24,16 @@ public class GridCell : MonoBehaviour {
     {
         mr.enabled = false;
     }
-
+    public void assignChildTransform(Transform transf)
+    {
+        childTransform = transf;
+    }
+    public void removeChildTransform(Transform transf)
+    {
+        childTransform = null;
+    }
+    public bool hasChildTransform()
+    {
+        return childTransform;
+    }
 }
