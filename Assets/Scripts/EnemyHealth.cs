@@ -21,7 +21,6 @@ public class EnemyHealth : Health {
         GetComponent<Enemy>().Flinch();
 
         transform.Find("Canvas/HP/ImageFiller").GetComponent<Image>().fillAmount = HealthAmount / MaxHealth;
-        Debug.Log("Damage!");
     }
 
     public override void Die()
@@ -35,17 +34,23 @@ public class EnemyHealth : Health {
         Vector3 clampedLocation = new Vector3(Mathf.Round(enemyPosition.x), 0f, Mathf.Round(enemyPosition.z));
         Debug.Log(clampedLocation);
         RaycastHit Hit;
-        if (Physics.Raycast(clampedLocation, -Vector3.up, out Hit, 1f, raycastMask))
+        Vector3 origin = clampedLocation;
+        origin.y = 2f;
+        if (Physics.Raycast(origin, Vector3.down, out Hit, 1f, raycastMask))
         {
             Debug.Log("Found object!");
-            if (Hit.collider.GetComponent<RockCell>() && enemy.HasConsumedPlant() ||
-                Hit.collider.GetComponent<PoisonCell>() && !enemy.HasConsumedPlant())
+            if (Hit.collider.GetComponent<RockCell>() != null && enemy.HasConsumedPlant() ||
+                Hit.collider.GetComponent<PoisonCell>() != null && !enemy.HasConsumedPlant())
             {
                 bool pickX = Mathf.Abs(enemyPosition.x - clampedLocation.x) > Mathf.Abs(enemyPosition.z - clampedLocation.z);
 
                 if (pickX) clampedLocation.x += (clampedLocation.x - enemyPosition.x <= 0) ? 1f : -1f;
                 else clampedLocation.z += (clampedLocation.z - enemyPosition.z <= 0) ? 1f : -1f;
+                origin = clampedLocation;
+                origin.y = 2f;
             }
+
+            if (Hit.collider.GetComponent<PlantCell>() != null) Destroy(Hit.collider.gameObject);
 
             //TODO: Could there be two occupied spots?
             if (enemy.HasConsumedPlant()) SpawnRockAtLocation(clampedLocation);

@@ -164,6 +164,8 @@ public class Enemy : MonoBehaviour {
 
     public void Flinch()
     {
+        if (isFlinching) CancelInvoke("RecoverFromFlinch");
+
         if (isAttacking)
         {
             InterruptAttack();

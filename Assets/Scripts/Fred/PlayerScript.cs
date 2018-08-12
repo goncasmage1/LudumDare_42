@@ -102,7 +102,7 @@ public class PlayerScript : MonoBehaviour {
         if (gInput.GetInput())
         {
             if (!inputDisabled) {
-                Debug.Log(isShowingCellTargetting + " || " + isPlacingPlant);
+                //Debug.Log(isShowingCellTargetting + " || " + isPlacingPlant);
                 if (!isShowingCellTargetting && isPlacingPlant)
                 {
                     isShowingCellTargetting = true;
@@ -328,6 +328,7 @@ public class PlayerScript : MonoBehaviour {
         inputDisabled = true;
         anim.SetBool("IsDead", true);
         deathCanvas.SetActive(true);
+        Time.timeScale = 0f;
     }
 	float calcZ(Vector2 aimDir){
 		float valZ=rotationZ;
@@ -364,7 +365,7 @@ public class PlayerScript : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.transform.name);
+        //Debug.Log(other.transform.name);
        
 
     }

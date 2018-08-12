@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4139513361642990}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Generator_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4745113473404790}
   - component: {fileID: 33058102643589540}
   - component: {fileID: 23844860114911328}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MODEL_Generator_Ready
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4359042291098822}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Generator_Ready
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 4749844349544408}
   - component: {fileID: 136403085365937422}
   - component: {fileID: 114922782154210514}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4233204147090830}
   - component: {fileID: 33347883640784268}
   - component: {fileID: 23335227980272512}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MODEL_Generator_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332201723346056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: -1.992, y: 0.036, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4139513361642990}

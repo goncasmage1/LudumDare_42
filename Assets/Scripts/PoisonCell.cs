@@ -42,7 +42,6 @@ public class PoisonCell : MonoBehaviour {
     {
         if (victim == null) return;
 
-        Debug.Log("Poisoned player!");
         victim.takeDamage(Damage);
         Invoke("DoDamage", DamageInterval);
     }
