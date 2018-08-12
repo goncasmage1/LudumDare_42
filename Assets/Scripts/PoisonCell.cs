@@ -11,7 +11,12 @@ public class PoisonCell : MonoBehaviour {
 
     private Health victim;
 
-	void Start () {
+    private void Awake()
+    {
+        GetComponent<CapsuleCollider>().isTrigger = true;
+    }
+
+    void Start () {
         Destroy(gameObject, Lifespan);
 	}
 

@@ -6,7 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     private bool bConsumedPlant = false;
+    private bool bTargetInRange = false;
     public float Speed = 2f;
+    public float Damage = 20f;
+    public float AttackDistance = 0.4f;
+    public float AttackInitialDelay = 0.2f;
+    public float AttackInterval = 0.6f;
     private Transform aimRotation;
     public Transform target = null;
 
@@ -27,7 +32,25 @@ public class Enemy : MonoBehaviour {
         clampedRotation.z = 0;
         aimRotation.rotation = clampedRotation;
 
-        rb.MovePosition(transform.position + aimRotation.forward * Time.deltaTime);
+        Vector3 position = transform.position;
+        if ((position - target.position).magnitude <= AttackDistance)
+        {
+            if (!bTargetInRange)
+            {
+                bTargetInRange = true;
+                Invoke("AttackTarget", AttackInitialDelay);
+            }
+        }
+        else
+        {
+            if (bTargetInRange)
+            {
+                bTargetInRange = false;
+                CancelInvoke("AttackTarget");
+            }
+            rb.MovePosition(position + aimRotation.forward * Time.deltaTime);
+        }
+
     }
 
     public bool HasConsumedPlant() { return bConsumedPlant; }
@@ -35,5 +58,13 @@ public class Enemy : MonoBehaviour {
     public void ConsumePlant()
     {
         bConsumedPlant = true;
+    }
+
+    void AttackTarget()
+    {
+        if (target == null) return;
+        target.GetComponent<PlayerScript>().takeDamage(Damage);
+        Invoke("AttackTarget", AttackInterval);
+        Debug.Log("Damaged player!");
     }
 }

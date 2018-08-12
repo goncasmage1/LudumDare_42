@@ -46,9 +46,8 @@ public class PlayerScript : MonoBehaviour {
     private PoolSpawner pushGrenadePS;
     private PoolSpawner solidGrenadePS;
     private SpriteRenderer sr;
-    private int health = 15;
-    private float maxHP = 50;
-    private float HP = 50;
+    private float maxHP = 100;
+    private float HP = 100;
     private bool inputDisabled = false;
     private float startDash = -1;
     [SerializeField] bool AmICraft;
@@ -243,7 +242,7 @@ public class PlayerScript : MonoBehaviour {
 		}*/
 	}
 
-	 void takeDamage(float damage){
+	public void takeDamage(float damage){
 		HP-=damage;
 		if (HP<=0){
 			Die();

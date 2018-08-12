@@ -19,7 +19,7 @@ TagManager:
   - PlayerCollision
   - PlayerWeapon
   - Enemy
-  - 
+  - OccupiedTile
   - 
   - 
   - 
