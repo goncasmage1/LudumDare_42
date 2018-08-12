@@ -12,5 +12,9 @@ public class OnTriggerEnterWarnScript : MonoBehaviour {
 	void Update () {
 		
 	}
-   
+    void OnTriggerEnter(Collider other)
+    {
+
+        other.transform.parent.parent.parent.GetComponent<EnemyHealth>().ReceiveDamage(30f);
+    }
 }

@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviour {
     public Sprite pickaxeSprite;
     public Sprite flowerSprite;
     public GameObject AttackObj;
+    private Vector3 directionWhileAttacking;
 
 
     public int itemHeld;
@@ -125,6 +126,13 @@ public class PlayerScript : MonoBehaviour {
 				if (attackNumber > 0)
                 {
                     float timeSinceFire = Time.time - startFireTarget;
+                    Vector2 moveDirXY = gInput.getMovementInput();
+
+                    Vector3 moveDir = new Vector3(moveDirXY.x, 0, moveDirXY.y);
+                    if (moveDir != Vector3.zero)
+                    {
+                        directionWhileAttacking = moveDir;
+                    }
                     if (timeSinceFire < timeAttackMove)
                     {
                         if (rb.velocity.magnitude < maxSpeed * speedAttackMultiplier)
@@ -147,6 +155,7 @@ public class PlayerScript : MonoBehaviour {
                     {
                         attackNumber=0;
                         timeSinceFire = -1;
+                        directionWhileAttacking = Vector3.zero;
                         AttackObj.SetActive(false);
                         inputDisabled = false;
                     }
@@ -195,6 +204,13 @@ public class PlayerScript : MonoBehaviour {
 	void Fire(){
         if (attackNumber < 3)
         {
+            if (directionWhileAttacking != Vector3.zero)
+            {
+                lastMoveDir = directionWhileAttacking;
+                rotationZ = calcZ(lastMoveDir);
+                canvasRotTransf.rotation = Quaternion.Euler(0, 0, rotationZ);
+                regularRotTransf.rotation = Quaternion.Euler(0, rotationZ, 0);
+            }
             currWalkSpeed = walkSpeed * speedAttackMultiplier;
             startFireTarget = Time.time;
             inputDisabled = true;

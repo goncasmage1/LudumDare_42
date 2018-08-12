@@ -1,14 +1,16 @@
 fileFormatVersion: 2
-guid: eb7d7cddb8a853e4a803a30729fc8bf6
+guid: 17c2326dc6f342344b330a8a167c42d5
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: No Name
+    2100000: 'Material #50'
+    2100002: 'Material #48'
+    2100004: 'Material #44'
     2300000: //RootNode
     3300000: //RootNode
-    4300000: MESH_Enemy
+    4300000: Box006
   externalObjects: {}
   materials:
     importMaterials: 1

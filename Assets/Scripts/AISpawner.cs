@@ -9,6 +9,7 @@ public class AISpawner : MonoBehaviour {
     public float SpawnInterval = 6f;
     [Range(0.01f, 1f)]
     public float SpawnIntervalReduction = 0.9f;
+    public float SpawnReduceCD = 2f;
     public PoolSpawner enemyPoolSpawner;
 
 
@@ -20,6 +21,7 @@ public class AISpawner : MonoBehaviour {
         if (mapCenter == null) Debug.LogError("Null map center!");
 
         SpawnNewEnemy();
+        StartCoroutine("reduceCD");
 	}
 	
     void SpawnNewEnemy()
@@ -39,10 +41,16 @@ public class AISpawner : MonoBehaviour {
             if (target != null) newEnemy.target = target;
         }
 
-        SpawnInterval *= SpawnIntervalReduction;
         Invoke("SpawnNewEnemy", SpawnInterval);
     }
-
+    IEnumerator reduceCD()
+    {
+        while (true)
+        {
+            SpawnInterval *= SpawnIntervalReduction;
+            yield return new WaitForSeconds(SpawnReduceCD);
+        }
+    }
     public void EnemyDied(Enemy deadEnemy)
     {
         enemies.Remove(deadEnemy);

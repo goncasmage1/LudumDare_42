@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+  - enabled: 0
+    path: Assets/Scenes/Goncalo.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/FredLoading.unity
+    guid: 5ea5fd86720276a4786fb173e82f476c
+  - enabled: 1
+    path: Assets/Scenes/Fred.unity
+    guid: 54fea9e0a7c600149ad96a7030648d3f
   m_configObjects: {}
