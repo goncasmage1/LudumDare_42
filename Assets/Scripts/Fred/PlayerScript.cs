@@ -279,7 +279,16 @@ public class PlayerScript : MonoBehaviour {
             }
         }else if (currItemType == ItemHeldType.Seed)
         {
-            
+            GridCell myCell = myCellTargetting.getCurrentCell();
+            if (myCell!= null)
+            {
+                if (!myCell.hasChildTransform())
+                {
+                    GameObject go = Instantiate(PlantObj, myCell.transform);
+                    myCell.assignChildTransform(go.transform);
+                }
+                
+            }
         }
         
 
