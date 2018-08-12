@@ -80,7 +80,7 @@ public class generalInput : MonoBehaviour
 		fireUp = player.GetButtonUp("Fire");
         UpActionDown = player.GetButtonDown("UpAction");
         RightActionDown = player.GetButtonDown("RightAction");
-        RightActionUp = player.GetButtonDown("RightActionUp");
+        RightActionUp = player.GetButtonUp("RightAction");
         BottomActionDown = player.GetButtonDown("BottomAction");
         LeftActionDown = player.GetButtonDown("LeftAction");
 

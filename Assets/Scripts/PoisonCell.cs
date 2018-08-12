@@ -6,10 +6,10 @@ using UnityEngine;
 public class PoisonCell : MonoBehaviour {
 
     public float Damage = 10f;
-    public float DamageInterval = 0.5f;
+    public float DamageInterval = 1.1f;
     public float Lifespan = 10f;
 
-    private Health victim;
+    private PlayerScript victim;
 
     private void Awake()
     {
@@ -22,16 +22,16 @@ public class PoisonCell : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        PlayerScript player = other.GetComponent<PlayerScript>();
+        PlayerScript player = other.transform.parent.parent.gameObject.GetComponent<PlayerScript>();
         if (player == null) return;
 
-        victim = player.GetComponent<Health>();
+        victim = player;
         DoDamage();
     }
 
     void OnTriggerExit(Collider other)
     {
-        PlayerScript player = other.GetComponent<PlayerScript>();
+        PlayerScript player = other.transform.parent.parent.gameObject.GetComponent<PlayerScript>();
         if (player == null) return;
 
         victim = null;
@@ -42,7 +42,8 @@ public class PoisonCell : MonoBehaviour {
     {
         if (victim == null) return;
 
-        victim.ReceiveDamage(Damage);
+        Debug.Log("Poisoned player!");
+        victim.takeDamage(Damage);
         Invoke("DoDamage", DamageInterval);
     }
 }

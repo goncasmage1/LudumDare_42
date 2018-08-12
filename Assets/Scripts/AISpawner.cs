@@ -25,9 +25,8 @@ public class AISpawner : MonoBehaviour {
     void SpawnNewEnemy()
     {
         Vector3 newLocation = new Vector3(1f, 0f, 0f);
-        newLocation = Quaternion.Euler(0, Random.Range(0f, 360f), 0) * newLocation;
-        newLocation.z = 0;
-        Debug.Log(newLocation);
+        newLocation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up) * newLocation;
+        newLocation.y = 0;
         GameObject go = enemyPoolSpawner.Spawn(transform, (newLocation * EnemySpawnDistance) + mapCenter);
         Transform newTransform = go.transform;
 

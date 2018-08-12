@@ -18,6 +18,8 @@ public class EnemyHealth : Health {
     {
         base.ReceiveDamage(DamageAmount);
 
+        GetComponent<Enemy>().Flinch();
+
         transform.Find("Canvas/HP/ImageFiller").GetComponent<Image>().fillAmount = HealthAmount / MaxHealth;
         Debug.Log("Damage!");
     }
@@ -54,6 +56,7 @@ public class EnemyHealth : Health {
             if (enemy.HasConsumedPlant()) SpawnRockAtLocation(clampedLocation);
             else SpawnPoisonAtLocation(clampedLocation);
         }
+        enemy.Die();
         Destroy(gameObject);
     }
 

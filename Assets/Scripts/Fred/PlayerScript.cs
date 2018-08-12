@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour {
+   
     private Transform myTransform;
     private generalInput gInput;
     private Rigidbody rb;
@@ -23,12 +24,13 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] float lastAttackCD = 0.6f;
     [SerializeField] float timeAttackMove = 0.5f;
     [SerializeField] float speedAttackMultiplier = 3f;
-    private int attackNumber=0;
+    private int attackNumber = 0;
 
     public Sprite swordSprite;
     public Sprite pickaxeSprite;
     public Sprite flowerSprite;
     public GameObject AttackObj;
+    public GameObject PlantObj;
     private Vector3 directionWhileAttacking;
 
 
@@ -37,8 +39,6 @@ public class PlayerScript : MonoBehaviour {
     private Image itemImage;
     private Text seedsText;
 
-    public int itemHeld;
-    private GameObject GameObjectHeld;
     private float currWalkSpeed;
     private float startFireTarget = -1f;
     private Image aimTargetImage;
@@ -54,10 +54,12 @@ public class PlayerScript : MonoBehaviour {
     private bool inputDisabled = false;
     private float startDash = -1;
     [SerializeField] bool AmICraft;
-
+    private ItemHeldType currItemType = ItemHeldType.Weapon;
 
     private bool isPlacingPlant;
+    private bool isShowingCellTargetting = false;
     private int CountBombs = 4;
+    private OnTriggerPlayerCell myCellTargetting;
 
 
     // Use this for initialization
@@ -81,7 +83,7 @@ public class PlayerScript : MonoBehaviour {
         if (itemImage == null) Debug.LogError("Couldn't find Item Image!");
         seedsText = canvas.transform.GetChild(2).GetComponent<Text>();
         if (seedsText == null) Debug.LogError("Couldn't find Seeds Text!");
-
+        myCellTargetting = myTransform.Find("AimRotation/CellTargetting").GetComponent<OnTriggerPlayerCell>();
         canvasRotTransf = myTransform.Find("Canvas/AimRotation");
         if (anim != null)
         {
@@ -96,6 +98,14 @@ public class PlayerScript : MonoBehaviour {
         if (gInput.GetInput())
         {
             if (!inputDisabled) {
+                Debug.Log(isShowingCellTargetting + " || " + isPlacingPlant);
+                if (!isShowingCellTargetting && isPlacingPlant)
+                {
+                    isShowingCellTargetting = true;
+                    myCellTargetting.showTargetting();
+
+
+                }
                 calcWalkSpeed();
                 Vector2 moveDirXY = gInput.getMovementInput();
 
@@ -114,25 +124,25 @@ public class PlayerScript : MonoBehaviour {
                     lastAimDir = aimDir;
                 }
                 rotationZ = calcZ(moveDirXY);
-                canvasRotTransf.rotation=Quaternion.Euler(0,0,rotationZ);
+                canvasRotTransf.rotation = Quaternion.Euler(0, 0, rotationZ);
                 regularRotTransf.rotation = Quaternion.Euler(0, rotationZ, 0);
                 if (gInput.getFireDown()) {
                     Fire();
                 }
-                
-                  
 
-              
-				if (gInput.getDashDown()){
-					inputDisabled=true;
-					currWalkSpeed=walkSpeed*dashMultiplier;
-					//anim.SetBool("Dashing",true);
-					Invoke("endDash",dashTime);
-					startDash=Time.time;
-				}
-				
-			}else{
-				if (attackNumber > 0)
+
+
+
+                if (gInput.getDashDown()) {
+                    inputDisabled = true;
+                    currWalkSpeed = walkSpeed * dashMultiplier;
+                    //anim.SetBool("Dashing",true);
+                    Invoke("endDash", dashTime);
+                    startDash = Time.time;
+                }
+
+            } else {
+                if (attackNumber > 0)
                 {
                     float timeSinceFire = Time.time - startFireTarget;
                     Vector2 moveDirXY = gInput.getMovementInput();
@@ -150,7 +160,7 @@ public class PlayerScript : MonoBehaviour {
                         }
 
                     }
-                     if(timeSinceFire<singleAttackCD)
+                    if (timeSinceFire < singleAttackCD)
                     {
                         if (timeSinceFire > singleAttackWaitStart)
                         {
@@ -162,79 +172,110 @@ public class PlayerScript : MonoBehaviour {
                     }
                     else
                     {
-                        attackNumber=0;
+                        attackNumber = 0;
                         timeSinceFire = -1;
                         directionWhileAttacking = Vector3.zero;
                         AttackObj.SetActive(false);
                         inputDisabled = false;
                     }
                 }
-				if (startDash!=-1){
-					if (rb.velocity.magnitude<maxSpeed*dashMultiplier){
-						rb.AddForce(lastMoveDir*currWalkSpeed);
-					}
-				}
+                if (startDash != -1) {
+                    if (rb.velocity.magnitude < maxSpeed * dashMultiplier) {
+                        rb.AddForce(lastMoveDir * currWalkSpeed);
+                    }
+                }
 
-			}
-        }
-        if (gInput.getRightActionDown())
-        {
-            isPlacingPlant = true;
-        }if (gInput.getRightActionUp())
-        {
+            }
+            if (gInput.getLeftActionDown())
+            {
+                currItemType = ItemHeldType.Weapon;
+                isShowingCellTargetting = false;
+                isPlacingPlant = false;
+                myCellTargetting.hideTargetting();
+            }
+            if (gInput.getRightActionDown())
+            {
+                currItemType = ItemHeldType.Tool;
+                isShowingCellTargetting = false;
+                isPlacingPlant = false;
+                myCellTargetting.hideTargetting();
+
+            }
+            if (gInput.getUpActionDown())
+            {
+                currItemType = ItemHeldType.Seed;
+                isPlacingPlant = true;
+
+                if (!inputDisabled)
+                {
+                    isShowingCellTargetting = true;
+                    myCellTargetting.showTargetting();
+                }
+            }
 
         }
+
         aimTarget();
-		setHPBar();
-
-	}
-
-    
-
-    void UsePot( )
-    {
-        
+        setHPBar();
 
     }
-  
-	
-	void endDash(){
-		if (inputDisabled && startDash!=-1){
 
-			inputDisabled=false;
-			//anim.SetBool("Dashing",false);
 
-			startDash=-1;
+    void Use()
+    {
 
-		}
-	}
+    }
+    void UsePot()
+    {
 
-	void setHPBar(){
+
+    }
+
+
+    void endDash() {
+        if (inputDisabled && startDash != -1) {
+
+            inputDisabled = false;
+            //anim.SetBool("Dashing",false);
+
+            startDash = -1;
+
+        }
+    }
+
+    void setHPBar() {
         hpBarImg.fillAmount = HP / maxHP;
     }
-	void calcWalkSpeed(){
-		
-			currWalkSpeed=walkSpeed;
-		
-	}
-	void Fire(){
-        if (attackNumber < 3)
+    void calcWalkSpeed() {
+
+        currWalkSpeed = walkSpeed;
+
+    }
+    void Fire() {
+        if (currItemType == ItemHeldType.Weapon)
         {
-            if (directionWhileAttacking != Vector3.zero)
+
+            if (attackNumber < 3)
             {
-                Debug.Log("Last Move Was" +lastMoveDir+" and rotationZ was "+rotationZ +" and directionWhileAttacking is "+directionWhileAttacking);
-                lastMoveDir = directionWhileAttacking;
-                
-                rotationZ = calcZ(new Vector3(lastMoveDir.x,lastMoveDir.z,0)); 
-                Debug.Log("Now rotationZ is " + rotationZ);
-                canvasRotTransf.rotation = Quaternion.Euler(0, 0, rotationZ);
-                regularRotTransf.rotation = Quaternion.Euler(0, rotationZ, 0);
+                if (directionWhileAttacking != Vector3.zero)
+                {
+                    Debug.Log("Last Move Was" + lastMoveDir + " and rotationZ was " + rotationZ + " and directionWhileAttacking is " + directionWhileAttacking);
+                    lastMoveDir = directionWhileAttacking;
+
+                    rotationZ = calcZ(new Vector3(lastMoveDir.x, lastMoveDir.z, 0));
+                    Debug.Log("Now rotationZ is " + rotationZ);
+                    canvasRotTransf.rotation = Quaternion.Euler(0, 0, rotationZ);
+                    regularRotTransf.rotation = Quaternion.Euler(0, rotationZ, 0);
+                }
+                currWalkSpeed = walkSpeed * speedAttackMultiplier;
+                startFireTarget = Time.time;
+                inputDisabled = true;
+                attackNumber++;
+                StartCoroutine("FireCoroutine");
             }
-            currWalkSpeed = walkSpeed * speedAttackMultiplier;
-            startFireTarget = Time.time;
-            inputDisabled = true;
-            attackNumber++;
-            StartCoroutine("FireCoroutine");
+        }else if (currItemType == ItemHeldType.Seed)
+        {
+            
         }
         
 
@@ -269,11 +310,7 @@ public class PlayerScript : MonoBehaviour {
 			Die();
 		}
 	}
-    void DestroyMyHeldItem()
-    {
-        
-        itemHeld = 0;
-    }
+   
 	void Die(){
         inputDisabled = true;
         anim.SetBool("IsDead", true);

@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum ItemType
+{
+    Weapon,
+    Pickaxe,
+    Plant
+}
 public class OnTriggerPlayerCell : MonoBehaviour {
     GridCell currentCell;
-
+    bool isToShow = false;
     // Use this for initialization
     void Start () {
 		
@@ -21,6 +26,25 @@ public class OnTriggerPlayerCell : MonoBehaviour {
             currentCell.removeTargeted();
         }
         currentCell = other.GetComponent<GridCell>();
-        currentCell.getTargeted();
+        if (isToShow)
+        {
+            currentCell.getTargeted();
+        }
+    }
+    public void showTargetting()
+    {
+        isToShow = true;
+        if (currentCell != null)
+        {
+            currentCell.getTargeted();
+        }
+    }
+    public void hideTargetting()
+    {
+        isToShow = false;
+        if (currentCell != null)
+        {
+            currentCell.removeTargeted();
+        }
     }
 }
