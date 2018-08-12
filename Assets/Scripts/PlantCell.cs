@@ -22,6 +22,7 @@ public class PlantCell : MonoBehaviour {
     private void Awake()
     {
         capsule = GetComponent<CapsuleCollider>();
+        capsule.isTrigger = true;
 
         plant = gameObject.transform.GetChild(0);
         plant.gameObject.SetActive(true);
@@ -51,26 +52,12 @@ public class PlantCell : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void HarvestPlant(GameObject harvester)
-    {
-        Enemy enemy = harvester.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            enemy.ConsumePlant();
-            Destroy(gameObject);
-        }
-        else
-        {
-            capsule.enabled = false;
-            //TODO: Add plant to player
-        }
-    }
-
     void OnTriggerEnter(Collider other)
     {
-        Enemy enemy = other.GetComponent<Enemy>();
+        Enemy enemy = other.GetComponentInParent<Enemy>();
         if (enemy == null || enemy.HasConsumedPlant()) return;
 
-        HarvestPlant(other.gameObject);
+        enemy.ConsumePlant();
+        Destroy(gameObject);
     }
 }
