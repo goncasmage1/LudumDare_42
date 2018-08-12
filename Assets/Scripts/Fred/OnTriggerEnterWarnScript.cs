@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OnTriggerEnterWarnScript : MonoBehaviour {
-	// Use this for initialization
+    // Use this for initialization
 	void Start () {
 		
 	}
@@ -14,7 +14,9 @@ public class OnTriggerEnterWarnScript : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
-
         other.transform.parent.parent.parent.GetComponent<EnemyHealth>().ReceiveDamage(30f);
+
+       
     }
+ 
 }
