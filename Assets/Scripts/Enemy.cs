@@ -89,7 +89,13 @@ public class Enemy : MonoBehaviour {
                 if (rb.velocity.magnitude < maxSpeed)
                 {
                     rb.AddForce(aimRotation.forward * walkSpeed);
+                    anim.SetFloat("Speed", 1f);
                 }
+                
+            }
+            else
+            {
+                anim.SetFloat("Speed", 0f);
             }
         }
         else 
@@ -260,6 +266,7 @@ public class Enemy : MonoBehaviour {
 
     public void Die()
     {
+        target.GetComponent<PlayerScript>().enemyKilled();
         if(bConsumedPlant)
             RuntimeManager.PlayOneShot("event:/SFX/Enemys/heavyenemy_death", Vector3.zero);
         else
