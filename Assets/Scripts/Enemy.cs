@@ -188,9 +188,14 @@ public class Enemy : MonoBehaviour {
 
     void FinishAttack()
     {
-        isAttacking = false;
-        anim.SetBool("Attacking", false);
-        if (bTargetInRange) Invoke("FinishAttack", AttackInterval);
+        if (isAttacking)
+        {
+            if (bTargetInRange) Invoke("FinishAttack", AttackInterval);
+        }
+        else
+        {
+            anim.SetBool("Attacking", false);
+        }
     }
 
     void InterruptAttack()
@@ -200,8 +205,8 @@ public class Enemy : MonoBehaviour {
         if (waitingForImpact)
         {
             anim.SetBool("Attacking", false);
-            isAttacking = false;
         }
+        isAttacking = false;
 
         if (bConsumedPlant)
         {
