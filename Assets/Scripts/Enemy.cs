@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour {
     public float flinchTime = 0.66666f;
     public float PlantConsumptionTime = 4f;
 
+    [HideInInspector]
+    public PlantCell targetPlant;
+
     private Transform aimRotation;
     public Transform target = null;
 
@@ -82,8 +85,9 @@ public class Enemy : MonoBehaviour {
 
     public bool HasConsumedPlant() { return bConsumedPlant; }
 
-    public void ConsumePlant()
+    public void ConsumePlant(PlantCell plant)
     {
+        targetPlant = plant;
         bConsumingPlant = true;
         anim.SetBool("Eating", true);
         Invoke("GrowStronger", PlantConsumptionTime);
@@ -95,6 +99,8 @@ public class Enemy : MonoBehaviour {
         enemyObject.SetActive(false);
         strongEnemyObject.SetActive(true);
         anim = strongAnim;
+        Destroy(targetPlant.gameObject);
+        targetPlant = null;
         Invoke("FinishGrowing", 1f);
     }
 

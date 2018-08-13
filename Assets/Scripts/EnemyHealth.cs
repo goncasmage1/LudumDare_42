@@ -53,6 +53,8 @@ public class EnemyHealth : Health {
     {
         if (spawner != null) spawner.EnemyDied(enemy);
 
+        if (enemy.targetPlant != null) enemy.targetPlant.StoppedEating();
+
         Vector3 clampedLocation = FindDropLocation();
         if (clampedLocation.y != 5f)
         {
@@ -85,6 +87,7 @@ public class EnemyHealth : Health {
 
                  PlantCell plant = Hit.collider.GetComponent<PlantCell>();
                 if (plant != null && !plant.IsPlantGrown()) Destroy(Hit.collider.gameObject);
+                return clampedLocation + pos;
             }
             else
             {
