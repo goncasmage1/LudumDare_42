@@ -86,7 +86,6 @@ public class PlayerScript : MonoBehaviour {
         if (deathCanvas == null)
             deathCanvas = GameObject.FindGameObjectWithTag("DeathCanvas");
         if (deathCanvas == null) Debug.LogError("Couldn't find Death Canvas!");
-        deathCanvas.SetActive(false);
         if (hpBarImg==null)
             hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
         if (hpBarImg == null) Debug.LogError("Couldn't find Health Bar!");
@@ -388,8 +387,7 @@ public class PlayerScript : MonoBehaviour {
     void Die(){
         inputDisabled = true;
         anim.SetBool("IsDead", true);
-        deathCanvas.SetActive(true);
-        Time.timeScale = 0f;
+        deathCanvas.GetComponent<DeathMenuFade>().BeginFadeLogic();
     }
 	float calcZ(Vector2 aimDir){
 		float valZ=rotationZ;

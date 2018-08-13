@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuFade : MonoBehaviour {
+public class DeathMenuFade : MonoBehaviour {
 
     public float fadeDelay = 3f;
     public float fadeTime = 2f;
@@ -20,11 +20,12 @@ public class MainMenuFade : MonoBehaviour {
         if (fadeTarget == null) Debug.LogError("Couldn't find fade Image!");
     }
 
-    void Start () {
+    public void BeginFadeLogic()
+    {
         Invoke("StartFade", fadeDelay);
-	}
-	
-	void Update () {
+    }
+
+    void Update () {
         if (!fading) return;
 
         fadeCounter += Time.deltaTime;
