@@ -62,40 +62,53 @@ public class PlayerScript : MonoBehaviour {
     private OnTriggerPlayerCell myCellTargetting;
     private bool isTryingToParry;
     private bool isParrying;
+    public float blockAngle = 120;
 
 
     // Use this for initialization
     void Start() {
-
     }
-    void OnEnable() {
+    void GeneralEnable()
+    {
+        Time.timeScale = 1f;
         lastAimDir = new Vector2(1, 0);
         HP = maxHP;
         myTransform = transform;
-        anim = transform.Find("AimRotation/ModelHolder/MODEL_CHAR_Hero").GetComponent<Animator>();
+        if (anim==null)
+             anim = transform.Find("AimRotation/ModelHolder/MODEL_CHAR_Hero").GetComponent<Animator>();
         gInput = gameObject.GetComponent<generalInput>();
         rb = gameObject.GetComponent<Rigidbody>();
         //sr=myTransform.Find("SpriteHolder/Body").GetComponent<SpriteRenderer>();
         regularRotTransf = myTransform.Find("AimRotation");
-        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        if (canvas==null)
+            canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (canvas == null) Debug.LogError("Couldn't find Canvas!");
-        deathCanvas = GameObject.FindGameObjectWithTag("DeathCanvas");
+        if (deathCanvas == null)
+            deathCanvas = GameObject.FindGameObjectWithTag("DeathCanvas");
         if (deathCanvas == null) Debug.LogError("Couldn't find Death Canvas!");
         deathCanvas.SetActive(false);
-        hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
+        if (hpBarImg==null)
+            hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
         if (hpBarImg == null) Debug.LogError("Couldn't find Health Bar!");
-        itemImage = canvas.transform.GetChild(1).GetComponent<Image>();
+        if (itemImage == null)
+            itemImage = canvas.transform.GetChild(1).GetComponent<Image>();
         if (itemImage == null) Debug.LogError("Couldn't find Item Image!");
-        seedsText = canvas.transform.GetChild(2).GetComponent<Text>();
+        if (seedsText == null)
+            seedsText = canvas.transform.GetChild(2).GetComponent<Text>();
         if (seedsText == null) Debug.LogError("Couldn't find Seeds Text!");
-        myCellTargetting = myTransform.Find("AimRotation/CellTargetting").GetComponent<OnTriggerPlayerCell>();
-        canvasRotTransf = myTransform.Find("Canvas/AimRotation");
+        if (myCellTargetting==null)
+            myCellTargetting = myTransform.Find("AimRotation/CellTargetting").GetComponent<OnTriggerPlayerCell>();
+        if (canvasRotTransf==null)
+            canvasRotTransf = myTransform.Find("Canvas/AimRotation");
         if (anim != null)
         {
             anim.SetBool("IsGuarding", false);
             anim.SetFloat("Speed", 0);
         }
         currWalkSpeed = walkSpeed;
+    }
+    void OnEnable() {
+        GeneralEnable();
     }
 
     // Update is called once per frame
@@ -357,7 +370,7 @@ public class PlayerScript : MonoBehaviour {
     public void takeDamage(float damage,Vector3 sourcePos)
     {
         Debug.Log(Vector3.Angle(sourcePos - myTransform.position, lastMoveDir));
-        if (Vector3.Angle(sourcePos - myTransform.position, lastMoveDir) < 60)
+        if (isParrying && Vector3.Angle(sourcePos - myTransform.position, lastMoveDir) < blockAngle)
         {
             anim.Play("ANIM_Hero_GuardHit_EDIT", -1, 0f);
         }
