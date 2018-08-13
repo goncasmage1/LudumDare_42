@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour {
     private bool bConsumedPlant = false;
     private bool bConsumingPlant = false;
     private bool bTargetInRange = false;
-    private bool isFlinching = false;
+    private bool isFlinching1 = false;
+    private bool isFlinching2 = false;
     private bool isAttacking = false;
 
     public float Speed = 2f;
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour {
     public float StrongAttackSecondDelay = 0.53f;
     public float StrongAttackInterval = 5f / 3f;
     public float flinchTime = 0.66666f;
+    public float PlantConsumptionTime = 4f;
 
     private Transform aimRotation;
     public Transform target = null;
@@ -49,7 +51,7 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 
         if (target == null) return;
-        bool busy = isFlinching || bConsumingPlant || isAttacking;
+        bool busy = isFlinching1 || isFlinching2 || bConsumingPlant || isAttacking;
 
         if (!busy)
         {
@@ -84,7 +86,7 @@ public class Enemy : MonoBehaviour {
     {
         bConsumingPlant = true;
         anim.SetBool("Eating", true);
-        Invoke("GrowStronger", 2f/3f);
+        Invoke("GrowStronger", PlantConsumptionTime);
     }
 
     void GrowStronger()
@@ -105,6 +107,7 @@ public class Enemy : MonoBehaviour {
     {
         anim.SetBool("Attacking", true);
         isAttacking = true;
+        Debug.Log("Start Attacking");
         if (!bConsumedPlant)
         {
             Invoke("AttackTarget", AttackInitialDelay);
@@ -120,6 +123,7 @@ public class Enemy : MonoBehaviour {
     void AttackTarget()
     {
         if (!bTargetInRange) return;
+        Debug.Log("Attack!");
         target.GetComponent<PlayerScript>().takeDamage(Damage);
         Invoke("AttackTarget", AttackInterval);
     }
@@ -164,8 +168,8 @@ public class Enemy : MonoBehaviour {
 
     public void Flinch()
     {
-        if (isFlinching) CancelInvoke("RecoverFromFlinch");
-
+        if (isFlinching1 || isFlinching2) CancelInvoke("RecoverFromFlinch");
+        Debug.Log("Flinching");
         if (isAttacking)
         {
             InterruptAttack();
@@ -173,15 +177,31 @@ public class Enemy : MonoBehaviour {
             CancelInvoke("FinishAttack");
         }
 
-        isFlinching = true;
-        anim.SetBool("Flinching", true);
+        if (isFlinching1)
+        {
+            isFlinching1 = false;
+            isFlinching2 = true;
+            anim.SetBool("Flinching2", true);
+            anim.SetBool("Flinching1", false);
+        }
+        else
+        {
+            isFlinching1 = true;
+            isFlinching2 = false;
+            anim.SetBool("Flinching1", true);
+            anim.SetBool("Flinching2", false);
+        }
+
+        
         Invoke("RecoverFromFlinch", flinchTime);
     }
 
     void RecoverFromFlinch()
     {
-        isFlinching = false;
-        anim.SetBool("Flinching", false);
+        isFlinching1 = false;
+        isFlinching2 = false;
+        anim.SetBool("Flinching1", false);
+        anim.SetBool("Flinching2", false);
     }
 
     public void Die()

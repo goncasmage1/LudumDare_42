@@ -22,16 +22,17 @@ public class PoisonCell : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        PlayerScript player = other.transform.parent.parent.gameObject.GetComponent<PlayerScript>();
+        PlayerScript player = other.transform.parent.parent.parent.gameObject.GetComponent<PlayerScript>();
         if (player == null) return;
 
+        Debug.Log("Poisoning!");
         victim = player;
         DoDamage();
     }
 
     void OnTriggerExit(Collider other)
     {
-        PlayerScript player = other.transform.parent.parent.gameObject.GetComponent<PlayerScript>();
+        PlayerScript player = other.transform.parent.parent.parent.gameObject.GetComponent<PlayerScript>();
         if (player == null) return;
 
         victim = null;

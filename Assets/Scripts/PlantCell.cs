@@ -48,7 +48,7 @@ public class PlantCell : MonoBehaviour {
         if (consumers.Count > 0)
         {
             consumers[0].GetComponentInParent<Enemy>().ConsumePlant();
-            Destroy(gameObject, 2f / 3f);
+            Destroy(gameObject, consumers[0].GetComponentInParent<Enemy>().PlantConsumptionTime);
             return;
         }
         plant.gameObject.SetActive(false);
