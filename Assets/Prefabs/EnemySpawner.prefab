@@ -173,6 +173,15 @@ MonoBehaviour:
   SpawnIntervalReduction: 0.95
   SpawnReduceCD: 2
   enemyPoolSpawner: {fileID: 0}
+  spawnFX: {fileID: 0}
+  enemyDeathFX: {fileID: 4838546075830106, guid: 9a31c4614c3051f4dada03fa445f497b,
+    type: 2}
+  enemyStrongDeathFX: {fileID: 4604721171292778, guid: 5e7fef91c5278044c8a3673bd6265efe,
+    type: 2}
+  enemyPainFX: {fileID: 4160127003017968, guid: 62fb4fda7a7fc75418813205e68d0ad6,
+    type: 2}
+  enemyStrongPainFX: {fileID: 4980117116946362, guid: e6174590c3263f14093fdf10ef06db49,
+    type: 2}
   spawnPoints:
   - {fileID: 4875818283099686}
   - {fileID: 4285232835389480}
