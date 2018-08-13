@@ -40,7 +40,6 @@ public class EnemyHealth : Health {
 
         if (HealthAmount > 0f)
         {
-            Debug.Log("Flinching!");
             enemy.Flinch();
             Transform particles = Instantiate(enemy.HasConsumedPlant() ? spawner.enemyStrongPainFX : spawner.enemyPainFX, transform.position, Quaternion.identity);
             Destroy(particles.gameObject, 0.3f);

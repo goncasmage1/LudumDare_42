@@ -86,6 +86,7 @@ public class PlayerScript : MonoBehaviour {
         if (deathCanvas == null)
             deathCanvas = GameObject.FindGameObjectWithTag("DeathCanvas");
         if (deathCanvas == null) Debug.LogError("Couldn't find Death Canvas!");
+        deathCanvas.SetActive(false);
         if (hpBarImg==null)
             hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
         if (hpBarImg == null) Debug.LogError("Couldn't find Health Bar!");
@@ -299,7 +300,7 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (directionWhileAttacking != Vector3.zero)
                 {
-                    Debug.Log("Last Move Was" + lastMoveDir + " and rotationZ was " + rotationZ + " and directionWhileAttacking is " + directionWhileAttacking);
+
                     lastMoveDir = directionWhileAttacking;
 
                     rotationZ = calcZ(new Vector3(lastMoveDir.x, lastMoveDir.z, 0));
@@ -387,7 +388,8 @@ public class PlayerScript : MonoBehaviour {
     void Die(){
         inputDisabled = true;
         anim.SetBool("IsDead", true);
-        deathCanvas.GetComponent<DeathMenuFade>().BeginFadeLogic();
+        deathCanvas.SetActive(true);
+        Time.timeScale = 0f;
     }
 	float calcZ(Vector2 aimDir){
 		float valZ=rotationZ;
