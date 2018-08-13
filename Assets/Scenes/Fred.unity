@@ -52715,7 +52715,7 @@ Prefab:
     - target: {fileID: 114101572129158728, guid: 4e19264b5b5d8184ab69190f70a52786,
         type: 2}
       propertyPath: SpawnIntervalReduction
-      value: 0.95
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 1613341794091646, guid: 4e19264b5b5d8184ab69190f70a52786, type: 2}
       propertyPath: m_IsActive
@@ -52733,6 +52733,11 @@ Prefab:
     - target: {fileID: 4285232835389480, guid: 4e19264b5b5d8184ab69190f70a52786, type: 2}
       propertyPath: m_LocalPosition.x
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114101572129158728, guid: 4e19264b5b5d8184ab69190f70a52786,
+        type: 2}
+      propertyPath: SpawnReduceCD
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e19264b5b5d8184ab69190f70a52786, type: 2}
@@ -54632,7 +54637,7 @@ Prefab:
       objectReference: {fileID: 374578331}
     - target: {fileID: 1224263433947842, guid: 9b67863fac0afdc4ab021960e4c21296, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1628387768143026, guid: 9b67863fac0afdc4ab021960e4c21296, type: 2}
       propertyPath: m_IsActive
