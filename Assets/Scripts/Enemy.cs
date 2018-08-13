@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
     private bool isFlinching1 = false;
     private bool isFlinching2 = false;
     private bool isAttacking = false;
+    private bool waitingForImpact = true;
 
     public float Speed = 2f;
     public float Damage = 20f;
@@ -138,6 +139,7 @@ public class Enemy : MonoBehaviour {
     {
         anim.SetBool("Attacking", true);
         isAttacking = true;
+        waitingForImpact = true;
         Debug.Log("Start Attacking");
         if (!bConsumedPlant)
         {
@@ -153,6 +155,7 @@ public class Enemy : MonoBehaviour {
 
     void AttackTarget()
     {
+        waitingForImpact = false;
         if (!bTargetInRange) return;
         Debug.Log("Attack!");
         Invoke("AttackTarget", AttackInterval);
@@ -160,6 +163,7 @@ public class Enemy : MonoBehaviour {
 
     void AttackTargetStrong1()
     {
+        waitingForImpact = false;
         if (!bTargetInRange) return;
         Debug.Log("Attack 1");
         Invoke("AttackTargetStrong2", StrongAttackSecondDelay);
@@ -179,6 +183,7 @@ public class Enemy : MonoBehaviour {
     void FinishAttack()
     {
         isAttacking = false;
+        anim.SetBool("Attacking", false);
         if (bTargetInRange) Invoke("FinishAttack", AttackInterval);
     }
 
@@ -186,7 +191,12 @@ public class Enemy : MonoBehaviour {
     {
         Debug.Log("Attack interrupted!");
         bTargetInRange = false;
-        anim.SetBool("Attacking", false);
+        if (waitingForImpact)
+        {
+            anim.SetBool("Attacking", false);
+            isAttacking = false;
+        }
+
         if (bConsumedPlant)
         {
             CancelInvoke("AttackTarget");
@@ -198,19 +208,13 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    void ForceInterruptAttack()
-    {
-        isAttacking = false;
-        InterruptAttack();
-    }
-
     public void Flinch()
     {
         if (isFlinching1 || isFlinching2) CancelInvoke("RecoverFromFlinch");
         RuntimeManager.PlayOneShot("event:/SFX/Enemys/enemy_transformation", Vector3.zero);
         if (isAttacking)
         {
-            ForceInterruptAttack();
+            InterruptAttack();
             isAttacking = false;
             CancelInvoke("FinishAttack");
         }
