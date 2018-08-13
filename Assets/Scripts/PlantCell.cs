@@ -167,7 +167,7 @@ public class PlantCell : MonoBehaviour {
         if (plantStage == PlantStage.Grown)
         {
             enemy.ConsumePlant();
-            Destroy(gameObject, 2f / 3f);
+            Destroy(gameObject, enemy.PlantConsumptionTime);
         }
         else
         {
