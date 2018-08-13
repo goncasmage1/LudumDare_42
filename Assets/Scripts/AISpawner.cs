@@ -13,6 +13,7 @@ public class AISpawner : MonoBehaviour {
     public PoolSpawner enemyPoolSpawner;
 
     public Transform[] spawnPoints;
+    public GameObject spawnFX;
     public Transform enemyPrefab = null;
     public List<Enemy> enemies = new List<Enemy>();
     public Transform target;
@@ -29,10 +30,13 @@ public class AISpawner : MonoBehaviour {
 
     void SpawnNewEnemy()
     {
-        Vector3 newLocation = new Vector3(1f, 0f, 0f);
-        newLocation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up) * newLocation;
-        newLocation.y = 0;
-        GameObject go = enemyPoolSpawner.Spawn(transform, spawnPoints[Random.Range(0, spawnPoints.Length-1)].position);
+        Vector3 newLocation = spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position;
+        GameObject go = enemyPoolSpawner.Spawn(transform, newLocation);
+        if (spawnFX != null)
+        {
+            GameObject particles = Instantiate(spawnFX, newLocation, Quaternion.identity);
+            Destroy(particles, 5f);
+        }
         Transform newTransform = go.transform;
 
         Enemy newEnemy = newTransform.GetComponent<Enemy>();
