@@ -431,7 +431,7 @@ public class PlayerScript : MonoBehaviour {
         RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_death", Vector3.zero);
         inputDisabled = true;
         anim.SetBool("IsDead", true);
-        deathCanvas.GetComponent<DeathMenuFade>().BeginFadeLogic();
+        deathCanvas.SetActive(true);
         Time.timeScale = 0f;
     }
 	float calcZ(Vector2 aimDir){
