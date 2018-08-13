@@ -38,6 +38,7 @@ public class PlayerScript : MonoBehaviour {
     public GameObject deathCanvas;
     private Image hpBarImg;
     private Text seedsText;
+    private Text enemiesText;
 
     private float currWalkSpeed;
     private float startFireTarget = -1f;
@@ -101,6 +102,7 @@ public class PlayerScript : MonoBehaviour {
         if (seedsText == null)
             seedsText = canvas.transform.GetChild(2).GetChild(0).GetComponent<Text>();
         if (seedsText == null) Debug.LogError("Couldn't find Seeds Text!");
+        enemiesText = deathCanvas.transform.GetChild(2).GetComponent<Text>();
         seedsText.text = "0";
         if (myCellTargetting==null)
             myCellTargetting = myTransform.Find("AimRotation/CellTargetting").GetComponent<OnTriggerPlayerCell>();
@@ -446,6 +448,7 @@ public class PlayerScript : MonoBehaviour {
         RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_death", Vector3.zero);
         inputDisabled = true;
         anim.SetBool("IsDead", true);
+        enemiesText.text = enemiesKilled.ToString();
         deathCanvas.SetActive(true);
         Time.timeScale = 0f;
     }

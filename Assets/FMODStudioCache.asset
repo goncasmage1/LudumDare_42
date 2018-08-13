@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114144700164117978}
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   EditorEvents:
   - {fileID: 114242656621968916}
   - {fileID: 114612972996700004}
@@ -37,9 +37,9 @@ MonoBehaviour:
   - {fileID: 114891860653129468}
   - {fileID: 114118053306104810}
   - {fileID: 114645166207998368}
-  MasterBankRef: {fileID: 114887748679570410}
+  MasterBankRef: {fileID: 114039516026003416}
   StringsBankRef: {fileID: 114144700164117978}
-  stringsBankWriteTime: 636697905705023335
+  stringsBankWriteTime: 636697914094249277
   cacheVersion: 2
 --- !u!114 &114018511645894606
 MonoBehaviour:
@@ -77,7 +77,7 @@ MonoBehaviour:
   Path: event:/Music/music_title
   guid: 31e015ce63dc1b418e08095c38446188
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -100,6 +100,24 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 1
+--- !u!114 &114039516026003416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank
+  lastModified: 636697914094189497
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 10954336
+  Exists: 1
 --- !u!114 &114087304129375922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +132,7 @@ MonoBehaviour:
   Path: event:/SFX/Enemys/normalenemy_death
   guid: 1feb259d200af84fa8a604ec3c45e66e
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -136,7 +154,7 @@ MonoBehaviour:
   Path: event:/SFX/Scenery/tower_shooting
   guid: f387730730e03046b1c2199f69f5799e
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -158,7 +176,7 @@ MonoBehaviour:
   Path: event:/SFX/UI/flower_pickup
   guid: fa4449cee7ff394794231a396fbc2397
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -180,7 +198,7 @@ MonoBehaviour:
   Path: event:/SFX/Main Char/attack_hitrocks
   guid: c2fc907233dc864897d99267814e7b79
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -200,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMODBanks\Master Bank.strings.bank
-  lastModified: 636697905705023335
+  lastModified: 636697914094249277
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -220,7 +238,7 @@ MonoBehaviour:
   Path: event:/SFX/Scenery/rocks_breaking
   guid: ac0a2dc4d26abf49891b8ca3557a4f96
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -242,7 +260,7 @@ MonoBehaviour:
   Path: event:/SFX/Scenery/tower_noammo
   guid: 0e94670b9324974bb71324908633abb7
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -264,7 +282,7 @@ MonoBehaviour:
   Path: event:/SFX/Enemys/enemy_transformation
   guid: 6ee877fc88a02e4fa890342e25d20013
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -286,7 +304,7 @@ MonoBehaviour:
   Path: event:/SFX/Enemys/enemy_pain
   guid: a0a2f2632786d049a4df7881a47899e3
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -329,7 +347,7 @@ MonoBehaviour:
   Path: event:/SFX/Scenery/poisonpuddle
   guid: 3b16cac4e337fd46b19692f5d0ad667c
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -370,6 +388,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114519258971516308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: space
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114554721218168244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +417,7 @@ MonoBehaviour:
   Path: event:/SFX/Main Char/mainchar_block
   guid: 3d08d102b05205408cd5b90776cb162f
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -406,7 +439,7 @@ MonoBehaviour:
   Path: event:/SFX/Main Char/attack_normal
   guid: 31344d62a338d5439c6b1501d97b0e7e
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -428,7 +461,7 @@ MonoBehaviour:
   Path: event:/SFX/Scenery/flower_ready
   guid: 153ed89745a5a249a520d2efdda5426a
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -468,7 +501,7 @@ MonoBehaviour:
   Path: event:/SFX/Enemys/enemy_eatingplants
   guid: 7f27ace550b4df488b9aa00d17b1dfed
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -490,7 +523,7 @@ MonoBehaviour:
   Path: event:/SFX/UI/seed_plant
   guid: ac62557c043a1741a65e46e6aa5b453a
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -512,7 +545,7 @@ MonoBehaviour:
   Path: event:/SFX/Main Char/VO/vo_mainchar_pain
   guid: fec927f65c31694f9392ad361ee0dfd7
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -534,7 +567,7 @@ MonoBehaviour:
   Path: event:/SFX/Enemys/normalenemy_grunt
   guid: d262e9ccb4c5d84ab410bd9fd22c6a49
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -556,7 +589,7 @@ MonoBehaviour:
   Path: event:/SFX/Main Char/attack_heavy
   guid: 8c0bfdcc4b55ee479f036806bd1e9cf7
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -608,7 +641,7 @@ MonoBehaviour:
   Path: event:/SFX/Scenery/tower_reload
   guid: c741b5008d000b41a30ee22436555e20
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -651,7 +684,7 @@ MonoBehaviour:
   FileSizes:
   - Name: 
     Value: 10954336
-  Exists: 1
+  Exists: 0
 --- !u!114 &114891860653129468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,16 +699,31 @@ MonoBehaviour:
   Path: event:/Music/music_main
   guid: f5e60602901baa499be390ee0b1249eb
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114441925175424384}
-  - {fileID: 114031895042704928}
+  - {fileID: 114519258971516308}
+  - {fileID: 114919456689554472}
   MinDistance: 0
   MaxDistance: 0
   Length: 109714
+--- !u!114 &114919456689554472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: life
+  Min: 0
+  Max: 1
+  Default: 1
 --- !u!114 &114931492707180476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +738,7 @@ MonoBehaviour:
   Path: event:/SFX/Main Char/VO/vo_mainchar_death
   guid: ba0763296233144bb17fc43df86e6e45
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -712,7 +760,7 @@ MonoBehaviour:
   Path: event:/SFX/Enemys/heavyenemy_death
   guid: 58a4559d10ea4d4783019b1d041e602b
   Banks:
-  - {fileID: 114887748679570410}
+  - {fileID: 114039516026003416}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
