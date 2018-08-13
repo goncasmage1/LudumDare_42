@@ -37,7 +37,6 @@ public class PlayerScript : MonoBehaviour {
     private GameObject canvas;
     public GameObject deathCanvas;
     private Image hpBarImg;
-    private Image itemImage;
     private Text seedsText;
 
     private float currWalkSpeed;
@@ -86,17 +85,16 @@ public class PlayerScript : MonoBehaviour {
             canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (canvas == null) Debug.LogError("Couldn't find Canvas!");
         if (deathCanvas == null)
-            deathCanvas = GameObject.FindGameObjectWithTag("DeathCanvas");
+            deathCanvas = canvas.transform.GetChild(4).gameObject;
         if (deathCanvas == null) Debug.LogError("Couldn't find Death Canvas!");
+        deathCanvas.SetActive(false);
         if (hpBarImg==null)
-            hpBarImg = canvas.transform.GetChild(0).GetComponent<Image>();
+            hpBarImg = canvas.transform.GetChild(1).GetComponent<Image>();
         if (hpBarImg == null) Debug.LogError("Couldn't find Health Bar!");
-        if (itemImage == null)
-            itemImage = canvas.transform.GetChild(1).GetComponent<Image>();
-        if (itemImage == null) Debug.LogError("Couldn't find Item Image!");
         if (seedsText == null)
-            seedsText = canvas.transform.GetChild(2).GetComponent<Text>();
+            seedsText = canvas.transform.GetChild(2).GetChild(0).GetComponent<Text>();
         if (seedsText == null) Debug.LogError("Couldn't find Seeds Text!");
+        seedsText.text = "0";
         if (myCellTargetting==null)
             myCellTargetting = myTransform.Find("AimRotation/CellTargetting").GetComponent<OnTriggerPlayerCell>();
         if (canvasRotTransf==null)
