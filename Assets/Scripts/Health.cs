@@ -5,9 +5,10 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 
     public float MaxHealth = 100f;
+    public float maxHealthBig = 150f;
     protected float HealthAmount = 0f;
 
-    private void Awake()
+    private void Start()
     {
         HealthAmount = MaxHealth;
     }
@@ -19,6 +20,7 @@ public class Health : MonoBehaviour {
 
     virtual public void ReceiveDamage(float DamageAmount)
     {
+        Debug.Log("levei dano " + transform.name + " " + DamageAmount);
         HealthAmount -= DamageAmount;
         if (HealthAmount <= 0f) Die();
     }
@@ -32,5 +34,10 @@ public class Health : MonoBehaviour {
     public virtual void Die()
     {
         Vector3 pos = transform.position;
+    }
+    public  void GrowBigger()
+    {
+        MaxHealth = maxHealthBig;
+        HealthAmount = MaxHealth;
     }
 }

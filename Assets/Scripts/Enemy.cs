@@ -39,7 +39,9 @@ public class Enemy : MonoBehaviour {
     private Animator strongAnim = null;
     private GameObject enemyObject = null;
     private GameObject strongEnemyObject = null;
-
+    public float maxSpeed;
+    public float walkSpeed;
+    public float delayDamage;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -77,7 +79,13 @@ public class Enemy : MonoBehaviour {
                 bTargetInRange = true;
                 StartAttacking();
             }
-            if (!busy) rb.MovePosition(position + aimRotation.forward * Time.deltaTime);
+            if (!busy)
+            {
+                if (rb.velocity.magnitude < maxSpeed)
+                {
+                    rb.AddForce(aimRotation.forward * walkSpeed);
+                }
+            }
         }
         else 
         {
@@ -105,6 +113,7 @@ public class Enemy : MonoBehaviour {
         bConsumedPlant = true;
         enemyObject.SetActive(false);
         strongEnemyObject.SetActive(true);
+        transform.GetComponent<EnemyHealth>().GrowBigger();
         anim = strongAnim;
         Destroy(targetPlant.gameObject);
         targetPlant = null;
@@ -140,7 +149,6 @@ public class Enemy : MonoBehaviour {
     {
         if (!bTargetInRange) return;
         Debug.Log("Attack!");
-        target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
         Invoke("AttackTarget", AttackInterval);
     }
 
@@ -148,16 +156,18 @@ public class Enemy : MonoBehaviour {
     {
         if (!bTargetInRange) return;
         Debug.Log("Attack 1");
-        target.GetComponent<PlayerScript>().takeDamage(Damage,transform.position);
         Invoke("AttackTargetStrong2", StrongAttackSecondDelay);
         Invoke("AttackTargetStrong1", StrongAttackInterval);
     }
-
+    public void DoDamage()
+    {
+        if (!bTargetInRange) return;
+             target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
+    }
     void AttackTargetStrong2()
     {
         if (!bTargetInRange) return;
         Debug.Log("Attack 2");
-        target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
     }
 
     void FinishAttack()

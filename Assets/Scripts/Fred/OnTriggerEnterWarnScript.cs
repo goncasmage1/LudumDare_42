@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OnTriggerEnterWarnScript : MonoBehaviour {
     // Use this for initialization
+    public float damage = 30f;
 	void Start () {
 		
 	}
@@ -15,7 +16,7 @@ public class OnTriggerEnterWarnScript : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         EnemyHealth enemyHealth = other.transform.parent.parent.parent.GetComponent<EnemyHealth>();
-        if (enemyHealth != null) enemyHealth.ReceiveDamage(30f);
+        if (enemyHealth != null) enemyHealth.ReceiveDamage(damage);
 
        
     }
