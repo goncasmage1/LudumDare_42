@@ -5,67 +5,125 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class PlantCell : MonoBehaviour {
 
-    private bool bGrown = false;
+    enum PlantStage { Initial, Grown, Tower};
+
+    PlantStage plantStage = PlantStage.Initial;
 
     public float PlantRegenAmount = 40f;
     public float PlantGrowthTime = 10f;
     public float PlantToTowerTime = 20f;
 
-    private Transform plant = null;
-    private Transform plantReady = null;
+    public float TowerAttackDistance = 6f;
+    public float TowerAttackInterval = 3f;
+    public float TowerDamage = 50f;
+
     private CapsuleCollider capsule;
 
-    public Transform towerPrefab;
+    private Enemy enemyTarget = null;
+    private AISpawner spawner;
+
+    private Animator anim;
 
     private List<Collider> consumers = new List<Collider>();
 
-    public bool IsPlantGrown() { return bGrown; }
+    public bool IsPlantGrown() { return plantStage == PlantStage.Grown; }
 
     private void Awake()
     {
         capsule = GetComponent<CapsuleCollider>();
         capsule.isTrigger = true;
 
-        plant = gameObject.transform.GetChild(0);
-        plant.gameObject.SetActive(true);
+        spawner = FindObjectOfType<AISpawner>();
+        if (spawner == null) Debug.LogError("Couldn't find AISpawner!");
 
-        plantReady = gameObject.transform.GetChild(1);
-        plantReady.gameObject.SetActive(false);
+        anim = GetComponentInChildren<Animator>();
+        if (anim == null) Debug.LogError("Couldn't find Animator in plant!");
     }
 
     private void Start()
     {
         Invoke("GrowPlant", PlantGrowthTime);
     }
+
+    private void Update()
+    {
+        if (!(plantStage == PlantStage.Tower)) return;
+
+        Enemy closestTarget = null;
+        float closestDistance = 0f;
+
+        foreach (Enemy enemy in spawner.enemies)
+        {
+            float distance = (enemy.transform.position - transform.position).magnitude;
+            if (distance <= TowerAttackDistance)
+            {
+                if (closestDistance == 0f || distance < closestDistance)
+                {
+                    closestTarget = enemy;
+                    closestDistance = distance;
+                }
+            }
+        }
+
+        //If found a target
+        if (closestTarget != null)
+        {
+            //and enemy wasn't set, start attacking
+            if (enemyTarget == null)
+            {
+                CancelInvoke("AttackTarget");
+                Invoke("AttackTarget", TowerAttackInterval);
+            }
+
+            if (enemyTarget != closestTarget) enemyTarget = closestTarget;
+        }
+        //If didn't find a target
+        else
+        {
+            //and enemy is still set, stop attacking
+            if (enemyTarget != null)
+            {
+                enemyTarget = null;
+                CancelInvoke("AttackTarget");
+            }
+        }
+    }
+
+    void AttackTarget()
+    {
+        if (enemyTarget != null)
+        {
+            enemyTarget.GetComponent<Health>().ReceiveDamage(TowerDamage);
+            Invoke("AttackTarget", TowerAttackInterval);
+        }
+    }
+
     void OnDestroy()
     {
-        transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
+        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
     }
     public void GrowPlant()
     {
-        bGrown = true;
-        transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
+        plantStage = PlantStage.Grown;
+        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
+        anim.SetBool("Ready", true);
         if (consumers.Count > 0)
         {
             consumers[0].GetComponentInParent<Enemy>().ConsumePlant();
             Destroy(gameObject, consumers[0].GetComponentInParent<Enemy>().PlantConsumptionTime);
             return;
         }
-        plant.gameObject.SetActive(false);
-        plantReady.gameObject.SetActive(true);
-        Invoke("SpawnTower", PlantToTowerTime);
+        Invoke("BecomeTower", PlantToTowerTime);
     }
 
-    private void SpawnTower()
+    private void BecomeTower()
     {
-        if (towerPrefab == null) Debug.LogError("Null tower prefab!");
-
-        Instantiate(towerPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        plantStage = PlantStage.Tower;
+        anim.SetBool("Tower", true);
     }
     public bool isRipe()
     {
-        return bGrown;
+        return plantStage == PlantStage.Grown;
         
     }
 
@@ -74,7 +132,7 @@ public class PlantCell : MonoBehaviour {
         Enemy enemy = other.GetComponentInParent<Enemy>();
         if (enemy == null || enemy.HasConsumedPlant()) return;
 
-        if (bGrown)
+        if (plantStage == PlantStage.Grown)
         {
             enemy.ConsumePlant();
             Destroy(gameObject, 2f / 3f);
