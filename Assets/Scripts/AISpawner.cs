@@ -17,6 +17,8 @@ public class AISpawner : MonoBehaviour {
     public Transform enemyStrongDeathFX;
     public Transform enemyPainFX;
     public Transform enemyStrongPainFX;
+    public Transform enemyEatFX;
+    public Transform enemyTransformFX;
     public Transform[] spawnPoints;
     public Transform enemyPrefab = null;
     public List<Enemy> enemies = new List<Enemy>();
@@ -47,6 +49,7 @@ public class AISpawner : MonoBehaviour {
         if (newEnemy != null)
         {
             enemies.Add(newEnemy);
+            newEnemy.spawner = this;
             newEnemy.GetComponent<EnemyHealth>().spawner = this;
             if (target != null) newEnemy.target = target;
         }

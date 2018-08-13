@@ -54,6 +54,7 @@ public class EnemyHealth : Health {
         if (spawner != null) spawner.EnemyDied(enemy);
 
         if (enemy.targetPlant != null) enemy.targetPlant.StoppedEating();
+        enemy.Die();
 
         Vector3 clampedLocation = FindDropLocation();
         if (clampedLocation.y != 5f)
@@ -79,20 +80,12 @@ public class EnemyHealth : Health {
             origin.y = 2f;
             if (Physics.Raycast(origin, Vector3.down, out Hit, 1f, raycastMask))
             {
-                Debug.Log("Found object!");
-                if (Hit.collider.GetComponent<RockCell>() != null || Hit.collider.GetComponent<PoisonCell>() != null)
-                {
-                    continue;
-                }
+                if (Hit.collider.GetComponent<RockCell>() != null || Hit.collider.GetComponent<PoisonCell>() != null) continue;
 
                  PlantCell plant = Hit.collider.GetComponent<PlantCell>();
                 if (plant != null && !plant.IsPlantGrown()) Destroy(Hit.collider.gameObject);
-                return clampedLocation + pos;
             }
-            else
-            {
-                return clampedLocation + pos;
-            }
+            return clampedLocation + pos;
         }
         return new Vector3(0f, 5f, 0f);
     }
