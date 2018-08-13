@@ -37,10 +37,14 @@ public class PlantCell : MonoBehaviour {
     {
         Invoke("GrowPlant", PlantGrowthTime);
     }
-
+    void OnDestroy()
+    {
+        transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
+    }
     public void GrowPlant()
     {
         bGrown = true;
+        transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
         if (consumers.Count > 0)
         {
             consumers[0].GetComponentInParent<Enemy>().ConsumePlant();
@@ -58,6 +62,11 @@ public class PlantCell : MonoBehaviour {
 
         Instantiate(towerPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+    public bool isRipe()
+    {
+        return bGrown;
+        
     }
 
     void OnTriggerEnter(Collider other)

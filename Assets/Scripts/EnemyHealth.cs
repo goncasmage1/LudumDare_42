@@ -7,6 +7,7 @@ public class EnemyHealth : Health {
 
     public Transform rockPrefab;
     public Transform poisonPrefab;
+    public Transform GridHolder;
 
     [HideInInspector]
     public AISpawner spawner;
@@ -67,11 +68,17 @@ public class EnemyHealth : Health {
 
     void SpawnRockAtLocation(Vector3 location)
     {
-        Instantiate(rockPrefab, location, Quaternion.identity);
+        Transform t = GridHolder.Find("Cell" + location.x + "|" + location.z);
+        Instantiate(rockPrefab, t);
+        t.GetComponent<GridCell>().assignChildTransform(t);
+
     }
 
     void SpawnPoisonAtLocation(Vector3 location)
     {
-        Instantiate(poisonPrefab, location, Quaternion.identity);
+        Transform t = GridHolder.Find("Cell" + location.x + "|" + location.z);
+        Instantiate(poisonPrefab, t);
+        t.GetComponent<GridCell>().assignChildTransform(t);
+
     }
 }

@@ -1733,6 +1733,7 @@ MonoBehaviour:
   rockPrefab: {fileID: 4058501634915888, guid: 8bc26474c3022994582b339551d26a5f, type: 2}
   poisonPrefab: {fileID: 4456912908048074, guid: ec45d3646048a694d9d2308c58f9bd7b,
     type: 2}
+  GridHolder: {fileID: 0}
   spawner: {fileID: 0}
   raycastMask:
     serializedVersion: 2

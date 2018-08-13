@@ -29,7 +29,6 @@ public class PlayerScript : MonoBehaviour {
     public Sprite swordSprite;
     public Sprite pickaxeSprite;
     public Sprite flowerSprite;
-    public GameObject AttackObj;
     public GameObject PlantObj;
     private Vector3 directionWhileAttacking;
 
@@ -71,7 +70,7 @@ public class PlayerScript : MonoBehaviour {
         lastAimDir = new Vector2(1, 0);
         HP = maxHP;
         myTransform = transform;
-        anim = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+        anim = transform.Find("AimRotation/ModelHolder/MODEL_CHAR_Hero").GetComponent<Animator>();
         gInput = gameObject.GetComponent<generalInput>();
         rb = gameObject.GetComponent<Rigidbody>();
         //sr=myTransform.Find("SpriteHolder/Body").GetComponent<SpriteRenderer>();
@@ -91,8 +90,8 @@ public class PlayerScript : MonoBehaviour {
         canvasRotTransf = myTransform.Find("Canvas/AimRotation");
         if (anim != null)
         {
-            anim.SetBool("HasItem", false);
-            anim.SetBool("HasSpell", false);
+            anim.SetBool("IsGuarding", false);
+            anim.SetFloat("Speed", 0);
         }
         currWalkSpeed = walkSpeed;
     }
@@ -122,7 +121,12 @@ public class PlayerScript : MonoBehaviour {
                 //anim.SetFloat("MoveSpeed",moveDir.magnitude*(currWalkSpeed/walkSpeed));
                 Vector2 aimDir = gInput.getAimInput();
                 if (moveDir != Vector3.zero) {
+                    anim.SetFloat("Speed", 1f);
                     lastMoveDir = moveDir;
+                }
+                else
+                {
+                    anim.SetFloat("Speed", 0f);
                 }
                 if (aimDir != Vector2.zero) {
                     lastAimDir = aimDir;
@@ -179,7 +183,6 @@ public class PlayerScript : MonoBehaviour {
                         attackNumber = 0;
                         timeSinceFire = -1;
                         directionWhileAttacking = Vector3.zero;
-                        AttackObj.SetActive(false);
                         inputDisabled = false;
                     }
                 }
@@ -275,7 +278,7 @@ public class PlayerScript : MonoBehaviour {
                 startFireTarget = Time.time;
                 inputDisabled = true;
                 attackNumber++;
-                StartCoroutine("FireCoroutine");
+                anim.Play("ANIM_Hero_Attack0" + attackNumber + "_EDIT", -1, 0f);
             }
         }else if (currItemType == ItemHeldType.Seed)
         {
@@ -287,20 +290,26 @@ public class PlayerScript : MonoBehaviour {
                     GameObject go = Instantiate(PlantObj, myCell.transform);
                     myCell.assignChildTransform(go.transform);
                 }
+                else
+                {
+                    PlantCell pc = myCell.getChildTransform().GetComponent<PlantCell>();
+                    if (pc != null)
+                    {
+                        if (pc.isRipe())
+                        {
+                            Destroy(pc.gameObject);
+                            myCell.removeTargeted();
+
+                        }
+                    }
+                }
                 
             }
         }
         
 
 	}
-    IEnumerator FireCoroutine()
-    {
-        AttackObj.SetActive(false);
-        yield return null;
-        AttackObj.SetActive(true);
-        
-        AttackObj.GetComponent<Animator>().Play("attack"+attackNumber, -1, 0f);
-    }
+   
 
 	void aimTarget(){
 	/*	if (startFireTarget!=-1){
