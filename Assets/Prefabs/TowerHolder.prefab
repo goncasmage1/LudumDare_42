@@ -989,8 +989,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlantRegenAmount: 40
-  PlantGrowthTime: 1
-  PlantToTowerTime: 1
+  PlantGrowthTime: 6
+  PlantToTowerTime: 12
   TowerAttackDistance: 6
   TowerAttackInterval: 3
   TowerDamage: 50
@@ -999,6 +999,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 20480
   spikes: {fileID: 1916334026024980}
+  ammo: 12
 --- !u!114 &114053835909294900
 MonoBehaviour:
   m_ObjectHideFlags: 1

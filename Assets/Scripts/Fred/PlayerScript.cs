@@ -63,11 +63,13 @@ public class PlayerScript : MonoBehaviour {
     private bool isTryingToParry;
     private bool isParrying;
     public float blockAngle = 120;
+    public int enemyMax = 25;
     FMODUnity.StudioEventEmitter emitter;
     private int enemiesKilled;
     public void enemyKilled()
     {
         enemiesKilled++;
+        emitter.SetParameter("space", (enemiesKilled / enemyMax));
     }
     // Use this for initialization
     void Start() {

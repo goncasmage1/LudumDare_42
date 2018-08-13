@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000000000B257B48 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 00000000383AD788 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,16 +15,102 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
-[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
-[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
-[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
-[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
-[LOG] Manager::readBank                        : fileversion = 100, compatVersion = 99 (oldest = 44, newest = 100)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
+[LOG] SystemI::createSound                     : filename = C:\Users\Fred\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000000B3381B8 : node = 0000000038684F10
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000037D87908.  list count = 0
+[LOG] SystemI::createSound                     : filename = C:\Users\Fred\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank : mode 02010082
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000000B3381B8
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     Create name='C:\Users\Fred\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 10900224
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 54112
+[LOG] SystemI::createSound                     :     setdata soundi = 000000005581D0F8 : node = 00000000386845E0
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSound                     :     add node to async list : head = 0000000037D87908.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000038685028
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSound                     :     filename = C:\Users\Fred\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 000000005581D968 : node = 0000000038684C70
+[LOG] SystemI::createSound                     :     add node to async list : head = 0000000037D87908.  list count = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='LDMusic_Layer01', format=2, channels=2, frequency=48000, lengthbytes=3324448, lengthpcm=5266285, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.892914.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000000B3381B8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005581D0F8
+[LOG] SystemI::createSoundInternal             :     Create name='C:\Users\Fred\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 10900224
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 54112
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000386846F8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='LDMusic_Layer02', format=2, channels=2, frequency=48000, lengthbytes=3170144, lengthpcm=5266285, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.955048.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005581D0F8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005581D968
+[LOG] SystemI::createSoundInternal             :     Create name='C:\Users\Fred\Documents\GitHub\LudumDare_42\Assets\FMODBanks\Master Bank.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 10900224
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 54112
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000038684D88
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='LDMusic_Layer03', format=2, channels=2, frequency=48000, lengthbytes=3411808, lengthpcm=5266285, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.955048.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005581D968
+[LOG] SoundI::getSubSound                      : sound 000000000B3381B8.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : sound 000000005581D0F8.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : sound 000000005581D968.  Subsound index 0 / 1
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005581BE68
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005581BE68
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005581C018
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005581C018
+[LOG] SoundI::release                          : LDMusic_Layer03 (000000005581D968)
+[LOG] SoundI::release                          :     LDMusic_Layer03 (0000000055583198)
+[LOG] SoundI::release                          :     LDMusic_Layer03 (000000005581C018)
+[LOG] SoundI::release                          : LDMusic_Layer02 (000000005581D0F8)
+[LOG] SoundI::release                          :     LDMusic_Layer02 (0000000055583678)
+[LOG] SoundI::release                          :     LDMusic_Layer02 (000000005581BE68)
+[LOG] SoundI::release                          : LDMusic_Layer01 (000000000B3381B8)
+[LOG] SoundI::release                          :     LDMusic_Layer01 (0000000055583338)
+[LOG] SoundI::release                          :     LDMusic_Layer01 (000000005581DB18)
+[LOG] SoundI::release                          : LDMusic_Layer03 (0000000012298688)
+[LOG] SoundI::release                          :     LDMusic_Layer03 (00000000555834D8)
+[LOG] SoundI::release                          :     LDMusic_Layer03 (0000000012296D38)
+[LOG] SoundI::release                          : LDMusic_Layer02 (00000000122984D8)
+[LOG] SoundI::release                          :     LDMusic_Layer02 (000000001233E288)
+[LOG] SoundI::release                          :     LDMusic_Layer02 (0000000012296B88)
+[LOG] SoundI::release                          : LDMusic_Layer01 (0000000012296EE8)
+[LOG] SoundI::release                          :     LDMusic_Layer01 (0000000012345F08)
+[LOG] SoundI::release                          :     LDMusic_Layer01 (00000000122969D8)
+[LOG] SoundI::release                          :  (000000005546DA18)
+[LOG] SoundI::release                          :     enemyVO_grunts01 (0000000012345548)
+[LOG] SoundI::release                          :  (000000005546CBB8)
+[LOG] SoundI::release                          :     enemyVO_grunts02 (00000000123456E8)
+[LOG] SoundI::release                          :  (000000005546D738)
+[LOG] SoundI::release                          :     enemyVO_grunts03 (00000000123460A8)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.
 [LOG] SystemI::close                           : Closed.
