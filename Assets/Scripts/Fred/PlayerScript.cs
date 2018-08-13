@@ -60,6 +60,8 @@ public class PlayerScript : MonoBehaviour {
     private bool isShowingCellTargetting = false;
     private int CountBombs = 4;
     private OnTriggerPlayerCell myCellTargetting;
+    private bool isTryingToParry;
+    private bool isParrying;
 
 
     // Use this for initialization
@@ -106,7 +108,11 @@ public class PlayerScript : MonoBehaviour {
                 {
                     isShowingCellTargetting = true;
                     myCellTargetting.showTargetting();
-
+                }
+                if(isTryingToParry && !isParrying)
+                {
+                    isParrying = true;
+                    anim.SetBool("IsGuarding", true);
 
                 }
                 calcWalkSpeed();
@@ -114,7 +120,7 @@ public class PlayerScript : MonoBehaviour {
 
                 Vector3 moveDir = new Vector3(moveDirXY.x, 0, moveDirXY.y);
 
-                if (rb.velocity.magnitude < maxSpeed) {
+                if (rb.velocity.magnitude < maxSpeed && !isParrying) {
                     rb.AddForce(moveDir * currWalkSpeed);
                 }
 
@@ -218,6 +224,21 @@ public class PlayerScript : MonoBehaviour {
                     isShowingCellTargetting = true;
                     myCellTargetting.showTargetting();
                 }
+            }if (gInput.getParryDown())
+            {
+                isTryingToParry = true;
+                if (!inputDisabled)
+                {
+                    isParrying = true;
+                    anim.SetBool("IsGuarding", true);
+                }
+            }
+            if (gInput.getParryUp())
+            {
+                isTryingToParry = false;
+                isParrying = false;
+                anim.SetBool("IsGuarding", false);
+                
             }
 
         }
@@ -332,8 +353,26 @@ public class PlayerScript : MonoBehaviour {
 			Die();
 		}
 	}
-   
-	void Die(){
+
+    public void takeDamage(float damage,Vector3 sourcePos)
+    {
+        Debug.Log(Vector3.Angle(sourcePos - myTransform.position, lastMoveDir));
+        if (Vector3.Angle(sourcePos - myTransform.position, lastMoveDir) < 60)
+        {
+            anim.Play("ANIM_Hero_GuardHit_EDIT", -1, 0f);
+        }
+        else
+        {
+            HP -= damage;
+            setHPBar();
+            if (HP <= 0)
+            {
+                Die();
+            }
+        }
+    }
+
+    void Die(){
         inputDisabled = true;
         anim.SetBool("IsDead", true);
         deathCanvas.SetActive(true);

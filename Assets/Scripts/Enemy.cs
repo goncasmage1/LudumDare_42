@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour {
     {
         if (!bTargetInRange) return;
         Debug.Log("Attack!");
-        target.GetComponent<PlayerScript>().takeDamage(Damage);
+        target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
         Invoke("AttackTarget", AttackInterval);
     }
 
@@ -132,7 +132,7 @@ public class Enemy : MonoBehaviour {
     {
         if (!bTargetInRange) return;
         Debug.Log("Attack 1");
-        target.GetComponent<PlayerScript>().takeDamage(Damage);
+        target.GetComponent<PlayerScript>().takeDamage(Damage,transform.position);
         Invoke("AttackTargetStrong2", StrongAttackSecondDelay);
         Invoke("AttackTargetStrong1", StrongAttackInterval);
     }
@@ -141,7 +141,7 @@ public class Enemy : MonoBehaviour {
     {
         if (!bTargetInRange) return;
         Debug.Log("Attack 2");
-        target.GetComponent<PlayerScript>().takeDamage(Damage);
+        target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
     }
 
     void FinishAttack()
