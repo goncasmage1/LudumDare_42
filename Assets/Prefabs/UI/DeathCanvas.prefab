@@ -75,8 +75,6 @@ GameObject:
   - component: {fileID: 223896453391185542}
   - component: {fileID: 114604329829102438}
   - component: {fileID: 114177836212660554}
-  - component: {fileID: 225799200042428060}
-  - component: {fileID: 114819438010699916}
   m_Layer: 5
   m_Name: DeathCanvas
   m_TagString: Untagged
@@ -470,19 +468,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114819438010699916
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240617355136738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc3257a7d575c294ab4e22459b1a5b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeDelay: 2
-  fadeTime: 2
 --- !u!114 &114822160537598354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -758,14 +743,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &225799200042428060
-CanvasGroup:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240617355136738}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
