@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a77cd7faede9b1429d3f4cae096cf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Fred
+  sceneName: MenuAnimation
   banks:
   - Master Bank
   - Master Bank.strings

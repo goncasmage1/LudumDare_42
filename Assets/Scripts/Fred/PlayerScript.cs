@@ -64,6 +64,11 @@ public class PlayerScript : MonoBehaviour {
     private bool isParrying;
     public float blockAngle = 120;
     FMODUnity.StudioEventEmitter emitter;
+    private int enemiesKilled;
+    public void enemyKilled()
+    {
+        enemiesKilled++;
+    }
     // Use this for initialization
     void Start() {
     }
@@ -216,30 +221,30 @@ public class PlayerScript : MonoBehaviour {
             }
             if (gInput.getLeftActionDown())
             {
-                currItemType = ItemHeldType.Weapon;
-                isShowingCellTargetting = false;
-                isPlacingPlant = false;
-                myCellTargetting.hideTargetting();
+                if (currItemType == ItemHeldType.Seed)
+                {
+                    currItemType = ItemHeldType.Weapon;
+                    isShowingCellTargetting = false;
+                    isPlacingPlant = false;
+                    myCellTargetting.hideTargetting();
+                }
+                else
+                {
+                    currItemType = ItemHeldType.Seed;
+                    isPlacingPlant = true;
+
+                    if (!inputDisabled)
+                    {
+                        isShowingCellTargetting = true;
+                        myCellTargetting.showTargetting();
+                    }
+                }
             }
             if (gInput.getRightActionDown())
             {
-                currItemType = ItemHeldType.Tool;
-                isShowingCellTargetting = false;
-                isPlacingPlant = false;
-                myCellTargetting.hideTargetting();
-
+                Heal();
             }
-            if (gInput.getUpActionDown())
-            {
-                currItemType = ItemHeldType.Seed;
-                isPlacingPlant = true;
-
-                if (!inputDisabled)
-                {
-                    isShowingCellTargetting = true;
-                    myCellTargetting.showTargetting();
-                }
-            }if (gInput.getParryDown())
+            if (gInput.getParryDown())
             {
                 isTryingToParry = true;
                 if (!inputDisabled)
@@ -264,7 +269,15 @@ public class PlayerScript : MonoBehaviour {
 
     }
 
+    void Heal()
+    {
+        if (seedsNr > 0 && HP<maxHP)
+        {
+            HP = Mathf.Min(maxHP, HP + maxHP/4);
+            seedsNr--;
+        }
 
+    }
     void Use()
     {
 
