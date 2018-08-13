@@ -35,6 +35,10 @@ ModelImporter:
     100058: MESH_GFX_SliceL
     100060: MESH_GFX_SliceR
     100062: MESH_GFX_Thrust
+    100064: Circle001
+    100066: Circle002
+    100068: Line001
+    100070: Plane002
     400000: //RootNode
     400002: Plane001
     400004: Plane003
@@ -67,6 +71,10 @@ ModelImporter:
     400058: MESH_GFX_SliceL
     400060: MESH_GFX_SliceR
     400062: MESH_GFX_Thrust
+    400064: Circle001
+    400066: Circle002
+    400068: Line001
+    400070: Plane002
     2100000: 'Material #25'
     2100002: 'Material #27'
     2100004: 'Material #39'
@@ -83,6 +91,10 @@ ModelImporter:
     2300012: MESH_GFX_SliceL
     2300014: MESH_GFX_SliceR
     2300016: MESH_GFX_Thrust
+    2300018: Circle001
+    2300020: Circle002
+    2300022: Line001
+    2300024: Plane002
     3300000: Plane001
     3300002: Plane003
     3300004: //RootNode
@@ -92,6 +104,10 @@ ModelImporter:
     3300012: MESH_GFX_SliceL
     3300014: MESH_GFX_SliceR
     3300016: MESH_GFX_Thrust
+    3300018: Circle001
+    3300020: Circle002
+    3300022: Line001
+    3300024: Plane002
     4300000: Plane001
     4300002: Plane003
     4300004: MESH_CHAR_Hero
@@ -101,6 +117,10 @@ ModelImporter:
     4300012: MESH_GFX_SliceR
     4300014: MESH_GFX_Thrust
     4300016: MESH_GFX_Impact
+    4300018: Circle001
+    4300020: Circle002
+    4300022: Line001
+    4300024: Plane002
     7400000: ANIM_Hero_Idle
     7400002: ANIM_Hero_Run
     7400004: ANIM_Hero_Hit

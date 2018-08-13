@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
     private float startDash = -1;
     [SerializeField] bool AmICraft;
     private ItemHeldType currItemType = ItemHeldType.Weapon;
-
+    private int seedsNr=2;
     private bool isPlacingPlant;
     private bool isShowingCellTargetting = false;
     private int CountBombs = 4;
@@ -198,6 +198,9 @@ public class PlayerScript : MonoBehaviour {
                                 Fire();
                             }
                         }
+                    }else if (timeSinceFire<lastAttackCD && attackNumber == 3)
+                    {
+
                     }
                     else
                     {
@@ -260,6 +263,7 @@ public class PlayerScript : MonoBehaviour {
 
         aimTarget();
         setHPBar();
+        setUI();
 
     }
 
@@ -285,7 +289,10 @@ public class PlayerScript : MonoBehaviour {
 
         }
     }
-
+    void setUI()
+    {
+        seedsText.text = "Seeds: " + seedsNr;
+    }
     void setHPBar() {
         hpBarImg.fillAmount = HP / maxHP;
     }
@@ -331,10 +338,13 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (!myCell.hasChildTransform(true))
                 {
-                    RuntimeManager.PlayOneShot("event:/SFX/UI/seed_plant", Vector3.zero);
-                    GameObject go = Instantiate(PlantObj, myCell.transform);
-                    myCell.assignChildTransform(go.transform);
-
+                    if (seedsNr > 0)
+                    {
+                        seedsNr--;
+                        RuntimeManager.PlayOneShot("event:/SFX/UI/seed_plant", Vector3.zero);
+                        GameObject go = Instantiate(PlantObj, myCell.transform);
+                        myCell.assignChildTransform(go.transform);
+                    }
                 }
                 else
                 {
@@ -344,12 +354,9 @@ public class PlayerScript : MonoBehaviour {
                         if (pc.isRipe())
                         {
                             RuntimeManager.PlayOneShot("event:/SFX/UI/flower_pickup", Vector3.zero);
-
+                            seedsNr += 3;
                             Destroy(pc.gameObject);
                             myCell.removeTargeted();
-
-                            HP=Mathf.Min(maxHP, HP+ (maxHP / 2));
-
                         }
                     }
                 }
