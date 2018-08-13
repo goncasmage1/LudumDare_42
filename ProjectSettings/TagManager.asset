@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Canvas
   - Enemy
-  - DeathCanvas
   - emitter
   layers:
   - Default
