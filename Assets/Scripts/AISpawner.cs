@@ -12,8 +12,12 @@ public class AISpawner : MonoBehaviour {
     public float SpawnReduceCD = 2f;
     public PoolSpawner enemyPoolSpawner;
 
+    public Transform spawnFX;
+    public Transform enemyDeathFX;
+    public Transform enemyStrongDeathFX;
+    public Transform enemyPainFX;
+    public Transform enemyStrongPainFX;
     public Transform[] spawnPoints;
-    public GameObject spawnFX;
     public Transform enemyPrefab = null;
     public List<Enemy> enemies = new List<Enemy>();
     public Transform target;
@@ -34,8 +38,8 @@ public class AISpawner : MonoBehaviour {
         GameObject go = enemyPoolSpawner.Spawn(transform, newLocation);
         if (spawnFX != null)
         {
-            GameObject particles = Instantiate(spawnFX, newLocation, Quaternion.identity);
-            Destroy(particles, 5f);
+            Transform particles = Instantiate(spawnFX, newLocation, Quaternion.identity);
+            Destroy(particles.gameObject, 5f);
         }
         Transform newTransform = go.transform;
 

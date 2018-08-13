@@ -7,6 +7,7 @@ public class EnemyHealth : Health {
 
     public Transform rockPrefab;
     public Transform poisonPrefab;
+    
     public Transform GridHolder;
 
     [HideInInspector]
@@ -15,21 +16,34 @@ public class EnemyHealth : Health {
     [SerializeField]
     private LayerMask raycastMask;
 
+    private Enemy enemy;
+
+    private void Awake()
+    {
+        enemy = GetComponent<Enemy>();
+        if (enemy == null) Debug.LogError("Couldn't find Enemy component!");
+    }
+
     public override void ReceiveDamage(float DamageAmount)
     {
         base.ReceiveDamage(DamageAmount);
 
-        GetComponent<Enemy>().Flinch();
+        if (HealthAmount > 0f)
+        {
+            Debug.Log("Flinching!");
+            enemy.Flinch();
+            Transform particles = Instantiate(enemy.HasConsumedPlant() ? spawner.enemyStrongPainFX : spawner.enemyPainFX, transform.position, Quaternion.identity);
+            Destroy(particles.gameObject, 0.3f);
+        }
 
         transform.Find("Canvas/HP/ImageFiller").GetComponent<Image>().fillAmount = HealthAmount / MaxHealth;
     }
 
     public override void Die()
     {
-        if (spawner != null) spawner.EnemyDied(GetComponent<Enemy>());
-        Enemy enemy = GetComponent<Enemy>();
-        if (enemy == null) Debug.LogError("Couldn't find enemy script!");
+        if (spawner != null) spawner.EnemyDied(enemy);
 
+        Debug.Log("Dead!");
         Vector3 enemyPosition = transform.position;
 
         Vector3 clampedLocation = new Vector3(Mathf.Round(enemyPosition.x), 0f, Mathf.Round(enemyPosition.z));
@@ -62,7 +76,9 @@ public class EnemyHealth : Health {
             if (enemy.HasConsumedPlant()) SpawnRockAtLocation(clampedLocation);
             else SpawnPoisonAtLocation(clampedLocation);
         }
-        enemy.Die();
+        Transform particles = Instantiate(enemy.HasConsumedPlant() ? spawner.enemyStrongDeathFX : spawner.enemyDeathFX, transform.position, Quaternion.identity);
+        Destroy(particles.gameObject, 1f);
+
         Destroy(gameObject);
     }
 
@@ -79,6 +95,5 @@ public class EnemyHealth : Health {
         Transform t = GridHolder.Find("Cell" + location.x + "|" + location.z);
         Instantiate(poisonPrefab, t);
         t.GetComponent<GridCell>().assignChildTransform(t);
-
     }
 }
