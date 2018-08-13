@@ -7,7 +7,7 @@ public class PoisonCell : MonoBehaviour {
 
     public float Damage = 10f;
     public float DamageInterval = 1.1f;
-    public float Lifespan = 10f;
+    public float Lifespan = 6.8f;
 
     private PlayerScript victim;
 
