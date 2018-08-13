@@ -10,6 +10,7 @@ public class GridCell : MonoBehaviour {
     public Transform childTransform;
     public bool hasRipePlant = false;
     public bool isBlockedToPlants = false;
+    public bool hasTower = false;
     public GameObject arrow;
 
     private void Awake () {
@@ -52,6 +53,10 @@ public class GridCell : MonoBehaviour {
             }
         }
     }
+    public void setHasTower(bool hT)
+    {
+        hasTower = hT;
+    }
     public void removeTargeted()
     {
         arrow.SetActive(false);
@@ -75,9 +80,9 @@ public class GridCell : MonoBehaviour {
     }
     public bool hasChildTransform(bool isForPlant)
     {
-        if (!isForPlant)
+        if (isForPlant)
         {
-            return childTransform != null && !isBlockedToPlants;
+            return childTransform != null || isBlockedToPlants;
         }
         else
         {
@@ -88,4 +93,5 @@ public class GridCell : MonoBehaviour {
     {
         return childTransform;
     }
+   
 }

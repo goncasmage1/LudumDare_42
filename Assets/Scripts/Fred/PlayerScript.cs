@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
     private float startDash = -1;
     [SerializeField] bool AmICraft;
     private ItemHeldType currItemType = ItemHeldType.Weapon;
-    private int seedsNr=2;
+    private int seedsNr=5;
     private bool isPlacingPlant;
     private bool isShowingCellTargetting = false;
     private int CountBombs = 4;
@@ -362,6 +362,11 @@ public class PlayerScript : MonoBehaviour {
                             Destroy(pc.gameObject);
                             myCell.removeTargeted();
                         }
+                        else if (pc.isTowerAndNeedsAmmo()){
+                            pc.reload();
+                            seedsNr--;
+                        }
+                        
                     }
                 }
                 

@@ -27,7 +27,9 @@ public class PlantCell : MonoBehaviour {
     private Vector3 towerPosition;
     private Transform shock;
     public GameObject spikes;
-
+    public int ammo = 12;
+    private int maxAmmo = 12;
+    private List<GameObject> ammoObjs;
     private Vector3[] raycastLocations = { new Vector3(1f, 2f, 1f),
                                            new Vector3(1f, 2f, 0f),
                                            new Vector3(1f, 2f, -1f),
@@ -50,9 +52,17 @@ public class PlantCell : MonoBehaviour {
 
     private void Awake()
     {
+        ammo = 0;
         capsule = GetComponent<CapsuleCollider>();
         capsule.isTrigger = true;
-
+        Transform canvasT = transform.Find("Canvas");
+        ammoObjs = new List<GameObject>();
+        foreach (Transform t in canvasT)
+        {
+            ammoObjs.Add(t.gameObject);
+        }
+        updateAmmoUI();
+        
         towerPosition = transform.position;
 
         shock = transform.GetChild(1);
@@ -64,7 +74,20 @@ public class PlantCell : MonoBehaviour {
         anim = GetComponentInChildren<Animator>();
         if (anim == null) Debug.LogError("Couldn't find Animator in plant!");
     }
-
+    private void updateAmmoUI()
+    {
+        for (int i = 0; i < ammoObjs.Count; i++)
+        {
+            if (i < ammo )
+            {
+                ammoObjs[i].SetActive(true);
+            }
+            else
+            {
+                ammoObjs[i].SetActive(false);
+            }
+        }
+    }
     private void Start()
     {
         Invoke("GrowPlant", PlantGrowthTime);
@@ -118,6 +141,7 @@ public class PlantCell : MonoBehaviour {
     {
         if (enemyTarget != null)
         {
+            if (ammo > 0) { 
             enemyTarget.GetComponent<Health>().ReceiveDamage(TowerDamage);
             RuntimeManager.PlayOneShot("event:/SFX/Scenery/tower_shooting", Vector3.zero);
             Vector3 distance = enemyTarget.transform.position - towerPosition;
@@ -126,11 +150,26 @@ public class PlantCell : MonoBehaviour {
             shock.transform.rotation = rotation;
             shock.localScale = (new Vector3(1f, 1f, 1f) * distance.magnitude);
             shock.gameObject.SetActive(true);
+            ammo--;
+            updateAmmoUI();
+                if (ammo == 0)
+                {
+                    anim.Play("ANIM_Tower_NoAmmo", -1, 0f);
+                }
+            }
             Invoke("AttackTarget", TowerAttackInterval);
             Invoke("HideShock", shockTime);
         }
     }
+    public void reload()
+    {
+        if(ammo==0)
+            anim.Play("ANIM_Tower_AddAmmo", -1, 0f);
+        ammo =Mathf.Min(maxAmmo,ammo + 3);
+        updateAmmoUI();
+        
 
+    }
     void HideShock()
     {
         shock.gameObject.SetActive(false);
@@ -138,13 +177,13 @@ public class PlantCell : MonoBehaviour {
 
     void OnDestroy()
     {
-        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
+        transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
     }
     public void GrowPlant()
     {
         ;
         plantStage = PlantStage.Grown;
-        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
+        transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
         anim.SetBool("Ready", true);
         if (consumers.Count > 0)
         {
@@ -174,6 +213,12 @@ public class PlantCell : MonoBehaviour {
         capsule.isTrigger = false;
         anim.SetBool("Tower", true);
         DestroyAdjacentTiles();
+        ammo = maxAmmo;
+        updateAmmoUI();
+    }
+    public bool isTowerAndNeedsAmmo()
+    {
+        return (ammo < maxAmmo && plantStage == PlantStage.Tower); 
     }
 
     private void DestroyAdjacentTiles()
