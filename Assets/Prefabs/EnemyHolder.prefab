@@ -1776,8 +1776,10 @@ MonoBehaviour:
   StrongAttackFirstDelay: 0.7
   StrongAttackSecondDelay: 0.7
   StrongAttackInterval: 1.6666666
-  flinchTime: 0.6666667
+  flinchTime: 0.5666667
   PlantConsumptionTime: 4
+  FreezeDelay: 0.1
+  FreezeTime: 0.1
   targetPlant: {fileID: 0}
   spawner: {fileID: 0}
   target: {fileID: 0}
