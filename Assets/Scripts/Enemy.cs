@@ -21,8 +21,10 @@ public class Enemy : MonoBehaviour {
     public float StrongAttackFirstDelay = 0.53f;
     public float StrongAttackSecondDelay = 0.53f;
     public float StrongAttackInterval = 5f / 3f;
-    public float flinchTime = 0.66666f;
+    public float flinchTime = 0.56666f;
     public float PlantConsumptionTime = 4f;
+    public float FreezeDelay = 0.1f;
+    public float FreezeTime = 0.2f;
 
     [HideInInspector]
     public PlantCell targetPlant;
@@ -192,13 +194,19 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    void ForceInterruptAttack()
+    {
+        isAttacking = false;
+        InterruptAttack();
+    }
+
     public void Flinch()
     {
         if (isFlinching1 || isFlinching2) CancelInvoke("RecoverFromFlinch");
         Debug.Log("Flinching");
         if (isAttacking)
         {
-            InterruptAttack();
+            ForceInterruptAttack();
             isAttacking = false;
             CancelInvoke("FinishAttack");
         }
@@ -217,12 +225,25 @@ public class Enemy : MonoBehaviour {
             anim.SetBool("Flinching1", true);
             anim.SetBool("Flinching2", false);
         }
-        
-        Invoke("RecoverFromFlinch", flinchTime);
+
+        //Invoke("Freeze", FreezeDelay);
+        Invoke("RecoverFromFlinch", flinchTime /*+ FreezeTime*/);
+    }
+
+    void Freeze()
+    {
+        anim.enabled = false;
+        Invoke("Unfreeze", FreezeTime);
+    }
+
+    void Unfreeze()
+    {
+        anim.enabled = true;
     }
 
     void RecoverFromFlinch()
     {
+        Debug.Log("Recovered!");
         isFlinching1 = false;
         isFlinching2 = false;
         anim.SetBool("Flinching1", false);
