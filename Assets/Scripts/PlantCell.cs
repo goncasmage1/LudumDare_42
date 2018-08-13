@@ -20,10 +20,12 @@ public class PlantCell : MonoBehaviour {
     public float TowerAttackDistance = 6f;
     public float TowerAttackInterval = 3f;
     public float TowerDamage = 50f;
+    public float shockTime = 0.5f;
 
     public LayerMask raycastMask;
 
     private Vector3 towerPosition;
+    private Transform shock;
 
     private Vector3[] raycastLocations = { new Vector3(1f, 2f, 1f),
                                            new Vector3(1f, 2f, 0f),
@@ -51,6 +53,9 @@ public class PlantCell : MonoBehaviour {
         capsule.isTrigger = true;
 
         towerPosition = transform.position;
+
+        shock = transform.GetChild(1);
+        shock.gameObject.SetActive(false);
 
         spawner = FindObjectOfType<AISpawner>();
         if (spawner == null) Debug.LogError("Couldn't find AISpawner!");
@@ -114,19 +119,31 @@ public class PlantCell : MonoBehaviour {
         {
             enemyTarget.GetComponent<Health>().ReceiveDamage(TowerDamage);
             RuntimeManager.PlayOneShot("event:/SFX/Scenery/tower_shooting", Vector3.zero);
+            Vector3 distance = enemyTarget.transform.position - towerPosition;
+            Quaternion rotation = Quaternion.LookRotation(distance);
+            rotation.y += 90f;
+            shock.transform.rotation = rotation;
+            shock.localScale = (new Vector3(1f, 1f, 1f) * distance.magnitude);
+            shock.gameObject.SetActive(true);
             Invoke("AttackTarget", TowerAttackInterval);
+            Invoke("HideShock", shockTime);
         }
+    }
+
+    void HideShock()
+    {
+        shock.gameObject.SetActive(false);
     }
 
     void OnDestroy()
     {
-        transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
+        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
     }
     public void GrowPlant()
     {
         ;
         plantStage = PlantStage.Grown;
-        transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
+        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
         anim.SetBool("Ready", true);
         if (consumers.Count > 0)
         {
