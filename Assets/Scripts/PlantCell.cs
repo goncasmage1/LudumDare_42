@@ -17,6 +17,19 @@ public class PlantCell : MonoBehaviour {
     public float TowerAttackInterval = 3f;
     public float TowerDamage = 50f;
 
+    public LayerMask raycastMask;
+
+    private Vector3 towerPosition;
+
+    private Vector3[] raycastLocations = { new Vector3(1f, 2f, 1f),
+                                           new Vector3(1f, 2f, 0f),
+                                           new Vector3(1f, 2f, -1f),
+                                           new Vector3(0f, 2f, -1f),
+                                           new Vector3(-1f, 2f, -1f),
+                                           new Vector3(-1f, 2f, 0f),
+                                           new Vector3(-1f, 2f, 1f),
+                                           new Vector3(0f, 2f, 1f) };
+
     private CapsuleCollider capsule;
 
     private Enemy enemyTarget = null;
@@ -32,6 +45,8 @@ public class PlantCell : MonoBehaviour {
     {
         capsule = GetComponent<CapsuleCollider>();
         capsule.isTrigger = true;
+
+        towerPosition = transform.position;
 
         spawner = FindObjectOfType<AISpawner>();
         if (spawner == null) Debug.LogError("Couldn't find AISpawner!");
@@ -121,7 +136,23 @@ public class PlantCell : MonoBehaviour {
         plantStage = PlantStage.Tower;
         capsule.isTrigger = false;
         anim.SetBool("Tower", true);
+        DestroyAdjacentTiles();
     }
+
+    private void DestroyAdjacentTiles()
+    {
+        foreach (Vector3 pos in raycastLocations)
+        {
+            RaycastHit Hit;
+            if (Physics.Raycast(towerPosition + pos, Vector3.down, out Hit, 1f, raycastMask))
+            {
+                Debug.Log("Found plant!");
+                //Debug.DrawLine()
+                if (Hit.collider.GetComponent<PlantCell>() != null) Destroy(Hit.collider.gameObject);
+            }
+        }
+    }
+
     public bool isRipe()
     {
         return plantStage == PlantStage.Grown;
