@@ -13,6 +13,6 @@ public class RetryButton : MonoBehaviour {
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Fred", LoadSceneMode.Single);
+       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

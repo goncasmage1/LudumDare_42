@@ -22,6 +22,7 @@ public class generalInput : MonoBehaviour
 	private bool topButtonDown;
 	private bool rightButtonDown;
 	private bool parryDown;
+    private bool parryUp;
     private bool UpActionDown;
     private bool RightActionDown;
     private bool BottomActionDown;
@@ -87,7 +88,8 @@ public class generalInput : MonoBehaviour
         changeWeaponDown = player.GetButtonDown("Change Grenade");
 		dashDown=player.GetButtonDown("Dash");
 		parryDown=player.GetButtonDown("Parry");
-		bottomButtonDown=player.GetButtonDown("Grenade0");
+        parryUp= player.GetButtonUp("Parry");
+        bottomButtonDown =player.GetButtonDown("Grenade0");
 		rightButtonDown=player.GetButtonDown("Grenade1");
 		topButtonDown=player.GetButtonDown("Grenade2");
 		leftButtonDown=player.GetButtonDown("Grenade3");
@@ -140,6 +142,10 @@ public class generalInput : MonoBehaviour
 	public bool getParryDown(){
 		return parryDown;
 	}
+    public bool getParryUp()
+    {
+        return parryUp;
+    }
     public bool getAnyButton()
     {
         return anyButton;
