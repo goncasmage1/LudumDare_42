@@ -211,7 +211,7 @@ public class Enemy : MonoBehaviour {
     public void Flinch()
     {
         if (isFlinching1 || isFlinching2) CancelInvoke("RecoverFromFlinch");
-        RuntimeManager.PlayOneShot("event:/SFX/Enemys/enemy_transformation", Vector3.zero);
+        RuntimeManager.PlayOneShot("event:/SFX/Enemys/enemy_pain", Vector3.zero);
         if (isAttacking)
         {
             InterruptAttack();
