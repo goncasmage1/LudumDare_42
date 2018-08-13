@@ -265,7 +265,7 @@ public class PlantCell : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         Enemy enemy = other.GetComponentInParent<Enemy>();
-        if (enemy == null || enemy.HasConsumedPlant()) return;
+        if (enemy == null || enemy.HasConsumedPlant() || beingEaten) return;
 
         if (plantStage == PlantStage.Grown)
         {

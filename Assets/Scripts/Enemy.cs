@@ -146,51 +146,22 @@ public class Enemy : MonoBehaviour {
         anim.SetBool("Attacking", true);
         isAttacking = true;
         waitingForImpact = true;
-        Debug.Log("Start Attacking");
-        if (!bConsumedPlant)
-        {
-            Invoke("AttackTarget", AttackInitialDelay);
-            Invoke("FinishAttack", AttackInterval);
-        }
-        else
-        {
-            Invoke("AttackTargetStrong1", StrongAttackFirstDelay);
-            Invoke("FinishAttack", StrongAttackInterval);
-        }
+        Invoke("FinishAttack", bConsumedPlant ? StrongAttackInterval : AttackInterval);
     }
 
-    void AttackTarget()
-    {
-        waitingForImpact = false;
-        if (!bTargetInRange) return;
-        Debug.Log("Attack!");
-        Invoke("AttackTarget", AttackInterval);
-    }
-
-    void AttackTargetStrong1()
-    {
-        waitingForImpact = false;
-        if (!bTargetInRange) return;
-        Debug.Log("Attack 1");
-        Invoke("AttackTargetStrong2", StrongAttackSecondDelay);
-        Invoke("AttackTargetStrong1", StrongAttackInterval);
-    }
     public void DoDamage()
     {
+        waitingForImpact = false;
         if (!bTargetInRange) return;
-             target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
-    }
-    void AttackTargetStrong2()
-    {
-        if (!bTargetInRange) return;
-        Debug.Log("Attack 2");
+
+        target.GetComponent<PlayerScript>().takeDamage(Damage, transform.position);
     }
 
     void FinishAttack()
     {
         if (isAttacking)
         {
-            if (bTargetInRange) Invoke("FinishAttack", AttackInterval);
+            if (bTargetInRange) Invoke("FinishAttack", bConsumedPlant ? StrongAttackInterval : AttackInterval);
         }
         else
         {
