@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FMOD.Studio;
+using FMODUnity;
 [RequireComponent(typeof(CapsuleCollider))]
 public class PlantCell : MonoBehaviour {
 
@@ -112,6 +113,7 @@ public class PlantCell : MonoBehaviour {
         if (enemyTarget != null)
         {
             enemyTarget.GetComponent<Health>().ReceiveDamage(TowerDamage);
+            RuntimeManager.PlayOneShot("event:/SFX/Scenery/tower_shooting", Vector3.zero);
             Invoke("AttackTarget", TowerAttackInterval);
         }
     }
@@ -122,6 +124,7 @@ public class PlantCell : MonoBehaviour {
     }
     public void GrowPlant()
     {
+        ;
         plantStage = PlantStage.Grown;
         transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
         anim.SetBool("Ready", true);
@@ -131,6 +134,7 @@ public class PlantCell : MonoBehaviour {
             consumers[0].GetComponentInParent<Enemy>().ConsumePlant(this);
             return;
         }
+        RuntimeManager.PlayOneShot("event:/SFX/Scenery/flower_ready", Vector3.zero);
         Invoke("BecomeTower", PlantToTowerTime);
     }
 

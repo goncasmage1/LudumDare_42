@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using FMOD.Studio;
+using FMODUnity;
 public class EnemyHealth : Health {
 
     public Transform rockPrefab;
@@ -40,6 +41,7 @@ public class EnemyHealth : Health {
 
         if (HealthAmount > 0f)
         {
+
             enemy.Flinch();
             Transform particles = Instantiate(enemy.HasConsumedPlant() ? spawner.enemyStrongPainFX : spawner.enemyPainFX, transform.position, Quaternion.identity);
             Destroy(particles.gameObject, 0.3f);
@@ -92,14 +94,17 @@ public class EnemyHealth : Health {
     void SpawnRockAtLocation(Vector3 location)
     {
         Transform t = GridHolder.Find("Cell" + location.x + "|" + location.z);
+        RuntimeManager.PlayOneShot("event:/SFX/Scenery/rocks_breaking", Vector3.zero);
         Instantiate(rockPrefab, t);
         t.GetComponent<GridCell>().assignChildTransform(t);
+
 
     }
 
     void SpawnPoisonAtLocation(Vector3 location)
     {
         Transform t = GridHolder.Find("Cell" + location.x + "|" + location.z);
+        RuntimeManager.PlayOneShot("event:/SFX/Scenery/poisonpuddle", Vector3.zero);
         Instantiate(poisonPrefab, t);
         t.GetComponent<GridCell>().assignChildTransform(t);
     }
