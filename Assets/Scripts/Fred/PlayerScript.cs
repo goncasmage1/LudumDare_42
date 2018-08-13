@@ -34,7 +34,7 @@ public class PlayerScript : MonoBehaviour {
 
 
     private GameObject canvas;
-    private GameObject deathCanvas;
+    public GameObject deathCanvas;
     private Image hpBarImg;
     private Image itemImage;
     private Text seedsText;
@@ -319,7 +319,7 @@ public class PlayerScript : MonoBehaviour {
             GridCell myCell = myCellTargetting.getCurrentCell();
             if (myCell!= null)
             {
-                if (!myCell.hasChildTransform())
+                if (!myCell.hasChildTransform(true))
                 {
                     GameObject go = Instantiate(PlantObj, myCell.transform);
                     myCell.assignChildTransform(go.transform);

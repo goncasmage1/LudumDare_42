@@ -118,12 +118,12 @@ public class PlantCell : MonoBehaviour {
 
     void OnDestroy()
     {
-        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
+        transform.parent.GetComponent<GridCell>().setHasPlantRipe(false);
     }
     public void GrowPlant()
     {
         plantStage = PlantStage.Grown;
-        //transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
+        transform.parent.GetComponent<GridCell>().setHasPlantRipe(true);
         anim.SetBool("Ready", true);
         if (consumers.Count > 0)
         {
@@ -163,11 +163,33 @@ public class PlantCell : MonoBehaviour {
             {
                 Debug.Log("Found plant!");
                 //Debug.DrawLine()
+             
                 if (Hit.collider.GetComponent<PlantCell>() != null) Destroy(Hit.collider.gameObject);
             }
         }
+        StartCoroutine("disableAdjacentTiles");
     }
+    IEnumerator disableAdjacentTiles()
+    {
+        int i, j = -1;
+        Transform gc = GameObject.FindObjectOfType<GridManager>().transform;
 
+        for (i = -1; i <= 1; i++)
+        {
+            for (j = -1; j <= 1; j++)
+            {
+                if (i != 0 || j != 0)
+                {
+                    Debug.Log("Cell" + Mathf.Floor(transform.position.x + i) + "|" + Mathf.Floor(transform.position.z + j));
+                    Transform t = gc.Find("Cell" + Mathf.Floor(transform.position.x + i) + "|" + Mathf.Floor(transform.position.z + j));
+                    GridCell gridC=t.GetComponent<GridCell>();
+                    gridC.blockForPlants();
+                }
+            }
+            yield return null;
+        }
+        yield return null;
+    }
     public bool isRipe()
     {
         return plantStage == PlantStage.Grown;

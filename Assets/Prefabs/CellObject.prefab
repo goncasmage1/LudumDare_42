@@ -44,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1308823180236634
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialGreen: {fileID: 2100000, guid: 397e9d20e8eb06743878cd8844969242, type: 2}
   materialRed: {fileID: 2100000, guid: 0af95879304be1c44888c725a71309ce, type: 2}
+  childTransform: {fileID: 0}
   hasRipePlant: 0
+  isBlockedToPlants: 0
   arrow: {fileID: 1416979035974248}
 --- !u!114 &114875884547053470
 MonoBehaviour:

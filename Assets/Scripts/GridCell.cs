@@ -7,8 +7,9 @@ public class GridCell : MonoBehaviour {
     MeshRenderer mr;
     public Material materialGreen;
     public Material materialRed;
-    Transform childTransform;
+    public Transform childTransform;
     public bool hasRipePlant = false;
+    public bool isBlockedToPlants = false;
     public GameObject arrow;
 
     private void Awake () {
@@ -17,7 +18,7 @@ public class GridCell : MonoBehaviour {
     }
     public void getTargeted()
     {
-        if (childTransform == null)
+        if (childTransform == null && !isBlockedToPlants)
         {
             mr.material = materialGreen;
         }
@@ -62,14 +63,26 @@ public class GridCell : MonoBehaviour {
         mr.material = materialRed;
         childTransform = transf;
     }
+  
+    public void blockForPlants()
+    {
+        isBlockedToPlants = true;
+    }
     public void removeChildTransform(Transform transf)
     {
         mr.material = materialGreen;
         childTransform = null;
     }
-    public bool hasChildTransform()
+    public bool hasChildTransform(bool isForPlant)
     {
-        return childTransform;
+        if (!isForPlant)
+        {
+            return childTransform != null && !isBlockedToPlants;
+        }
+        else
+        {
+            return childTransform != null;
+        }
     }
     public Transform getChildTransform()
     {
