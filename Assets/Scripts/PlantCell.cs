@@ -119,6 +119,7 @@ public class PlantCell : MonoBehaviour {
     private void BecomeTower()
     {
         plantStage = PlantStage.Tower;
+        capsule.isTrigger = false;
         anim.SetBool("Tower", true);
     }
     public bool isRipe()
