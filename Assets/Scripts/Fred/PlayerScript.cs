@@ -344,6 +344,11 @@ public class PlayerScript : MonoBehaviour {
                         GameObject go = Instantiate(PlantObj, myCell.transform);
                         myCell.assignChildTransform(go.transform);
                     }
+                    else
+                    {
+
+                        //RuntimeManager.PlayOneShot("event:/SFX/UI/seed_plant", Vector3.zero);
+                    }
                 }
                 else
                 {

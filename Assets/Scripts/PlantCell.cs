@@ -26,6 +26,7 @@ public class PlantCell : MonoBehaviour {
 
     private Vector3 towerPosition;
     private Transform shock;
+    public GameObject spikes;
 
     private Vector3[] raycastLocations = { new Vector3(1f, 2f, 1f),
                                            new Vector3(1f, 2f, 0f),
@@ -168,7 +169,7 @@ public class PlantCell : MonoBehaviour {
             shouldBecomTower = true;
             return;
         }
-
+        spikes.SetActive(true);
         plantStage = PlantStage.Tower;
         capsule.isTrigger = false;
         anim.SetBool("Tower", true);
@@ -199,13 +200,12 @@ public class PlantCell : MonoBehaviour {
         {
             for (j = -1; j <= 1; j++)
             {
-                if (i != 0 || j != 0)
-                {
+              
                     Debug.Log("Cell" + Mathf.Floor(transform.position.x + i) + "|" + Mathf.Floor(transform.position.z + j));
                     Transform t = gc.Find("Cell" + Mathf.Floor(transform.position.x + i) + "|" + Mathf.Floor(transform.position.z + j));
                     GridCell gridC=t.GetComponent<GridCell>();
                     gridC.blockForPlants();
-                }
+                
             }
             yield return null;
         }
