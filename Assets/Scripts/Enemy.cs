@@ -24,8 +24,15 @@ public class Enemy : MonoBehaviour {
     public float flinchTime = 0.66666f;
     public float PlantConsumptionTime = 4f;
 
-    private Transform aimRotation;
+    [HideInInspector]
+    public PlantCell targetPlant;
+
+    [HideInInspector]
+    public AISpawner spawner;
+
     public Transform target = null;
+    private Transform aimRotation;
+    private Transform eatFX;
 
     private Rigidbody rb = null;
     private Animator anim = null;
@@ -82,20 +89,29 @@ public class Enemy : MonoBehaviour {
 
     public bool HasConsumedPlant() { return bConsumedPlant; }
 
-    public void ConsumePlant()
+    public void ConsumePlant(PlantCell plant)
     {
+        targetPlant = plant;
         bConsumingPlant = true;
         anim.SetBool("Eating", true);
         Invoke("GrowStronger", PlantConsumptionTime);
+
+        eatFX = Instantiate(spawner.enemyEatFX, transform.position, Quaternion.identity);
     }
 
     void GrowStronger()
     {
+        if (eatFX != null) Destroy(eatFX.gameObject);
         bConsumedPlant = true;
         enemyObject.SetActive(false);
         strongEnemyObject.SetActive(true);
         anim = strongAnim;
+        Destroy(targetPlant.gameObject);
+        targetPlant = null;
         Invoke("FinishGrowing", 1f);
+
+        Transform particles = Instantiate(spawner.enemyTransformFX, transform.position, Quaternion.identity);
+        Destroy(particles.gameObject, 1f);
     }
 
     void FinishGrowing()
@@ -191,7 +207,6 @@ public class Enemy : MonoBehaviour {
             anim.SetBool("Flinching1", true);
             anim.SetBool("Flinching2", false);
         }
-
         
         Invoke("RecoverFromFlinch", flinchTime);
     }
@@ -206,6 +221,6 @@ public class Enemy : MonoBehaviour {
 
     public void Die()
     {
-
+        if (eatFX != null) Destroy(eatFX.gameObject);
     }
 }

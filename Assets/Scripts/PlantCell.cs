@@ -9,6 +9,9 @@ public class PlantCell : MonoBehaviour {
 
     PlantStage plantStage = PlantStage.Initial;
 
+    private bool beingEaten = false;
+    private bool shouldBecomTower = false;
+
     public float PlantRegenAmount = 40f;
     public float PlantGrowthTime = 10f;
     public float PlantToTowerTime = 20f;
@@ -124,15 +127,27 @@ public class PlantCell : MonoBehaviour {
         anim.SetBool("Ready", true);
         if (consumers.Count > 0)
         {
-            consumers[0].GetComponentInParent<Enemy>().ConsumePlant();
-            Destroy(gameObject, consumers[0].GetComponentInParent<Enemy>().PlantConsumptionTime);
+            beingEaten = true;
+            consumers[0].GetComponentInParent<Enemy>().ConsumePlant(this);
             return;
         }
         Invoke("BecomeTower", PlantToTowerTime);
     }
 
+    public void StoppedEating()
+    {
+        beingEaten = false;
+        if (shouldBecomTower) BecomeTower();
+    }
+
     private void BecomeTower()
     {
+        if (beingEaten)
+        {
+            shouldBecomTower = true;
+            return;
+        }
+
         plantStage = PlantStage.Tower;
         capsule.isTrigger = false;
         anim.SetBool("Tower", true);
@@ -166,8 +181,8 @@ public class PlantCell : MonoBehaviour {
 
         if (plantStage == PlantStage.Grown)
         {
-            enemy.ConsumePlant();
-            Destroy(gameObject, 2f / 3f);
+            beingEaten = true;
+            enemy.ConsumePlant(this);
         }
         else
         {

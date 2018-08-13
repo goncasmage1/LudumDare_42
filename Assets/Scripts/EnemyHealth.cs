@@ -10,6 +10,16 @@ public class EnemyHealth : Health {
     
     public Transform GridHolder;
 
+    private Vector3[] raycastLocations = { new Vector3(0f, 0f, 0f),
+                                           new Vector3(1f, 0f, 1f),
+                                           new Vector3(1f, 0f, 0f),
+                                           new Vector3(1f, 0f, -1f),
+                                           new Vector3(0f, 0f, -1f),
+                                           new Vector3(-1f, 0f, -1f),
+                                           new Vector3(-1f, 0f, 0f),
+                                           new Vector3(-1f, 0f, 1f),
+                                           new Vector3(0f, 0f, 1f) };
+
     [HideInInspector]
     public AISpawner spawner;
 
@@ -43,43 +53,41 @@ public class EnemyHealth : Health {
     {
         if (spawner != null) spawner.EnemyDied(enemy);
 
-        Debug.Log("Dead!");
-        Vector3 enemyPosition = transform.position;
+        if (enemy.targetPlant != null) enemy.targetPlant.StoppedEating();
+        enemy.Die();
 
-        Vector3 clampedLocation = new Vector3(Mathf.Round(enemyPosition.x), 0f, Mathf.Round(enemyPosition.z));
-        Debug.Log(clampedLocation);
-        RaycastHit Hit;
-        Vector3 origin = clampedLocation;
-        origin.y = 2f;
-        if (Physics.Raycast(origin, Vector3.down, out Hit, 1f, raycastMask))
-        {
-            Debug.Log("Found object!");
-            if (Hit.collider.GetComponent<RockCell>() != null && enemy.HasConsumedPlant() ||
-                Hit.collider.GetComponent<PoisonCell>() != null && !enemy.HasConsumedPlant())
-            {
-                bool pickX = Mathf.Abs(enemyPosition.x - clampedLocation.x) > Mathf.Abs(enemyPosition.z - clampedLocation.z);
-
-                if (pickX) clampedLocation.x += (clampedLocation.x - enemyPosition.x <= 0) ? 1f : -1f;
-                else clampedLocation.z += (clampedLocation.z - enemyPosition.z <= 0) ? 1f : -1f;
-                origin = clampedLocation;
-                origin.y = 2f;
-            }
-
-            if (Hit.collider.GetComponent<PlantCell>() != null) Destroy(Hit.collider.gameObject);
-
-            //TODO: Could there be two occupied spots?
-            if (enemy.HasConsumedPlant()) SpawnRockAtLocation(clampedLocation);
-            else SpawnPoisonAtLocation(clampedLocation);
-        }
-        else
+        Vector3 clampedLocation = FindDropLocation();
+        if (clampedLocation.y != 5f)
         {
             if (enemy.HasConsumedPlant()) SpawnRockAtLocation(clampedLocation);
             else SpawnPoisonAtLocation(clampedLocation);
         }
+
         Transform particles = Instantiate(enemy.HasConsumedPlant() ? spawner.enemyStrongDeathFX : spawner.enemyDeathFX, transform.position, Quaternion.identity);
         Destroy(particles.gameObject, 1f);
 
         Destroy(gameObject);
+    }
+
+    Vector3 FindDropLocation()
+    {
+        Vector3 enemyPosition = transform.position;
+
+        Vector3 clampedLocation = new Vector3(Mathf.Round(enemyPosition.x), 0f, Mathf.Round(enemyPosition.z));
+        foreach (Vector3 pos in raycastLocations) {
+            RaycastHit Hit;
+            Vector3 origin = clampedLocation + pos;
+            origin.y = 2f;
+            if (Physics.Raycast(origin, Vector3.down, out Hit, 1f, raycastMask))
+            {
+                if (Hit.collider.GetComponent<RockCell>() != null || Hit.collider.GetComponent<PoisonCell>() != null) continue;
+
+                 PlantCell plant = Hit.collider.GetComponent<PlantCell>();
+                if (plant != null && !plant.IsPlantGrown()) Destroy(Hit.collider.gameObject);
+            }
+            return clampedLocation + pos;
+        }
+        return new Vector3(0f, 5f, 0f);
     }
 
     void SpawnRockAtLocation(Vector3 location)
