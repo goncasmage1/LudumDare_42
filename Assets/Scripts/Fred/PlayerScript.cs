@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using FMOD.Studio;
+using FMODUnity;
 public class PlayerScript : MonoBehaviour {
    
     private Transform myTransform;
@@ -63,13 +64,14 @@ public class PlayerScript : MonoBehaviour {
     private bool isTryingToParry;
     private bool isParrying;
     public float blockAngle = 120;
-
-
+    FMODUnity.StudioEventEmitter emitter;
     // Use this for initialization
     void Start() {
     }
     void GeneralEnable()
     {
+        emitter = GameObject.FindGameObjectWithTag("emitter").GetComponent<FMODUnity.StudioEventEmitter>();
+
         Time.timeScale = 1f;
         lastAimDir = new Vector2(1, 0);
         HP = maxHP;
@@ -312,6 +314,14 @@ public class PlayerScript : MonoBehaviour {
                 startFireTarget = Time.time;
                 inputDisabled = true;
                 attackNumber++;
+                if (attackNumber == 3)
+                {
+                    RuntimeManager.PlayOneShot("event:/SFX/Main Char/attack_heavy", Vector3.zero);
+                }
+                else {
+                    RuntimeManager.PlayOneShot("event:/SFX/Main Char/attack_normal", Vector3.zero);
+                }
+               
                 anim.Play("ANIM_Hero_Attack0" + attackNumber + "_EDIT", -1, 0f);
             }
         }else if (currItemType == ItemHeldType.Seed)
@@ -321,8 +331,10 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (!myCell.hasChildTransform(true))
                 {
+                    RuntimeManager.PlayOneShot("event:/SFX/UI/seed_plant", Vector3.zero);
                     GameObject go = Instantiate(PlantObj, myCell.transform);
                     myCell.assignChildTransform(go.transform);
+
                 }
                 else
                 {
@@ -331,8 +343,12 @@ public class PlayerScript : MonoBehaviour {
                     {
                         if (pc.isRipe())
                         {
+                            RuntimeManager.PlayOneShot("event:/SFX/UI/flower_pickup", Vector3.zero);
+
                             Destroy(pc.gameObject);
                             myCell.removeTargeted();
+
+                            HP=Mathf.Min(maxHP, HP+ (maxHP / 2));
 
                         }
                     }
@@ -364,7 +380,12 @@ public class PlayerScript : MonoBehaviour {
         setHPBar();
 		if (HP<=0){
 			Die();
-		}
+           
+        }
+        else
+        {
+            RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_pain", Vector3.zero);
+        }
 	}
 
     public void takeDamage(float damage,Vector3 sourcePos)
@@ -373,6 +394,7 @@ public class PlayerScript : MonoBehaviour {
         if (isParrying && Vector3.Angle(sourcePos - myTransform.position, lastMoveDir) < blockAngle)
         {
             anim.Play("ANIM_Hero_GuardHit_EDIT", -1, 0f);
+            RuntimeManager.PlayOneShot("event:/SFX/Main Char/mainchar_block", Vector3.zero);
         }
         else
         {
@@ -382,10 +404,17 @@ public class PlayerScript : MonoBehaviour {
             {
                 Die();
             }
+            else
+            {
+                RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_pain", Vector3.zero);
+            }
         }
+        Debug.Log( (HP / maxHP));
+        emitter.SetParameter("life", (HP / maxHP));
     }
 
     void Die(){
+        RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_death", Vector3.zero);
         inputDisabled = true;
         anim.SetBool("IsDead", true);
         deathCanvas.SetActive(true);

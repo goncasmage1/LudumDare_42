@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FMOD.Studio;
+using FMODUnity;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour {
 
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour {
     public float maxSpeed;
     public float walkSpeed;
     public float delayDamage;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,7 +55,7 @@ public class Enemy : MonoBehaviour {
         enemyObject = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
         strongEnemyObject = transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1).gameObject;
         if (enemyObject == null || strongEnemyObject == null) Debug.LogError("Couldn't find Enemy objects!");
-
+        RuntimeManager.PlayOneShot("event:/SFX/Enemys/normalenemy_grunt", Vector3.zero);
         strongEnemyObject.SetActive(false);
     }
 	
@@ -103,6 +105,7 @@ public class Enemy : MonoBehaviour {
         bConsumingPlant = true;
         anim.SetBool("Eating", true);
         Invoke("GrowStronger", PlantConsumptionTime);
+        RuntimeManager.PlayOneShot("event:/SFX/Enemys/enemy_eatingplants", Vector3.zero);
 
         eatFX = Instantiate(spawner.enemyEatFX, transform.position, Quaternion.identity);
     }
@@ -111,6 +114,7 @@ public class Enemy : MonoBehaviour {
     {
         if (eatFX != null) Destroy(eatFX.gameObject);
         bConsumedPlant = true;
+        RuntimeManager.PlayOneShot("event:/SFX/Enemys/enemy_transformation", Vector3.zero);
         enemyObject.SetActive(false);
         strongEnemyObject.SetActive(true);
         transform.GetComponent<EnemyHealth>().GrowBigger();
@@ -195,7 +199,7 @@ public class Enemy : MonoBehaviour {
     public void Flinch()
     {
         if (isFlinching1 || isFlinching2) CancelInvoke("RecoverFromFlinch");
-        Debug.Log("Flinching");
+        RuntimeManager.PlayOneShot("event:/SFX/Enemys/enemy_transformation", Vector3.zero);
         if (isAttacking)
         {
             InterruptAttack();
@@ -231,6 +235,10 @@ public class Enemy : MonoBehaviour {
 
     public void Die()
     {
+        if(bConsumedPlant)
+            RuntimeManager.PlayOneShot("event:/SFX/Enemys/heavyenemy_death", Vector3.zero);
+        else
+            RuntimeManager.PlayOneShot("event:/SFX/Enemys/normalenemy_death", Vector3.zero);
         if (eatFX != null) Destroy(eatFX.gameObject);
     }
 }

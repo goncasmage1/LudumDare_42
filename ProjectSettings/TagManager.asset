@@ -7,6 +7,7 @@ TagManager:
   - Canvas
   - Enemy
   - DeathCanvas
+  - emitter
   layers:
   - Default
   - TransparentFX
