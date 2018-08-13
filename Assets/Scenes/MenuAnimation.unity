@@ -113,6 +113,22 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9905163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1614189906327686, guid: 048de48c02d040a4188afe3c5f2da90d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1621951434}
+--- !u!114 &9905164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 9905163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f31d2accc8c04048bfc3e08d988f8e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &742309285
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,20 +585,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224992809695717010, guid: 048de48c02d040a4188afe3c5f2da90d,
+    - target: {fileID: 224397474923448290, guid: 048de48c02d040a4188afe3c5f2da90d,
         type: 2}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 224245808122537490, guid: 048de48c02d040a4188afe3c5f2da90d,
-        type: 2}
+    - target: {fileID: 4116129331765698, guid: 048de48c02d040a4188afe3c5f2da90d, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224397474923448290, guid: 048de48c02d040a4188afe3c5f2da90d,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224566173024697052, guid: 048de48c02d040a4188afe3c5f2da90d,
         type: 2}
@@ -599,29 +609,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1099483637758256, guid: 048de48c02d040a4188afe3c5f2da90d, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 225487916038230436, guid: 048de48c02d040a4188afe3c5f2da90d,
+    - target: {fileID: 224992809695717010, guid: 048de48c02d040a4188afe3c5f2da90d,
         type: 2}
-      propertyPath: m_BlocksRaycasts
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 225487916038230436, guid: 048de48c02d040a4188afe3c5f2da90d,
-        type: 2}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 225487916038230436, guid: 048de48c02d040a4188afe3c5f2da90d,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 225487916038230436, guid: 048de48c02d040a4188afe3c5f2da90d,
-        type: 2}
-      propertyPath: m_Alpha
-      value: 0
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 048de48c02d040a4188afe3c5f2da90d, type: 2}
