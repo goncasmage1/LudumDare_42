@@ -288,7 +288,7 @@ public class PlayerScript : MonoBehaviour {
     }
     void setUI()
     {
-        seedsText.text = "Seeds: " + seedsNr;
+        seedsText.text = ""+seedsNr;
     }
     void setHPBar() {
         hpBarImg.fillAmount = HP / maxHP;
