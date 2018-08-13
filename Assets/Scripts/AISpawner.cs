@@ -12,22 +12,27 @@ public class AISpawner : MonoBehaviour {
     public float SpawnReduceCD = 2f;
     public PoolSpawner enemyPoolSpawner;
 
-
+    public Transform[] spawnPoints;
     public Transform enemyPrefab = null;
     public List<Enemy> enemies = new List<Enemy>();
     public Transform target;
 
-	void Start () {
+    private void Awake()
+    {
+        if (spawnPoints.Length == 0) Debug.LogError("No spawn points in AIManager!");
+    }
+
+    void Start () {
         SpawnNewEnemy();
         StartCoroutine("reduceCD");
 	}
-	
+
     void SpawnNewEnemy()
     {
         Vector3 newLocation = new Vector3(1f, 0f, 0f);
         newLocation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up) * newLocation;
         newLocation.y = 0;
-        GameObject go = enemyPoolSpawner.Spawn(transform, (newLocation * EnemySpawnDistance) + mapCenter);
+        GameObject go = enemyPoolSpawner.Spawn(transform, spawnPoints[Random.Range(0, spawnPoints.Length-1)].position);
         Transform newTransform = go.transform;
 
         Enemy newEnemy = newTransform.GetComponent<Enemy>();
