@@ -20,7 +20,7 @@ public class PlantCell : MonoBehaviour {
     public float TowerAttackDistance = 6f;
     public float TowerAttackInterval = 3f;
     public float TowerDamage = 50f;
-    public float shockTime = 0.5f;
+    public float shockTime = 0.7f;
 
     public LayerMask raycastMask;
 
@@ -121,7 +121,7 @@ public class PlantCell : MonoBehaviour {
             RuntimeManager.PlayOneShot("event:/SFX/Scenery/tower_shooting", Vector3.zero);
             Vector3 distance = enemyTarget.transform.position - towerPosition;
             Quaternion rotation = Quaternion.LookRotation(distance);
-            rotation.y += 90f;
+            rotation *= Quaternion.AngleAxis(90, Vector3.up);
             shock.transform.rotation = rotation;
             shock.localScale = (new Vector3(1f, 1f, 1f) * distance.magnitude);
             shock.gameObject.SetActive(true);
