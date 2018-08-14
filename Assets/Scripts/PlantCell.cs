@@ -161,15 +161,15 @@ public class PlantCell : MonoBehaviour {
             Invoke("HideShock", shockTime);
         }
     }
+
     public void reload()
     {
         if(ammo==0)
             anim.Play("ANIM_Tower_AddAmmo", -1, 0f);
         ammo =Mathf.Min(maxAmmo,ammo + 3);
         updateAmmoUI();
-        
-
     }
+
     void HideShock()
     {
         shock.gameObject.SetActive(false);

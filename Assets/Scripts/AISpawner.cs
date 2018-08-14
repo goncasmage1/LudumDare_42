@@ -12,7 +12,10 @@ public class AISpawner : MonoBehaviour {
     public float SpawnReduceCD = 2f;
     public PoolSpawner enemyPoolSpawner;
 
-    public Transform spawnFX;
+    public float PortalToSpawnDelay = 0.3f;
+    public float PortalDeactivateDelay = 0.2f;
+
+    public GameObject spawnFX;
     public Transform enemyDeathFX;
     public Transform enemyStrongDeathFX;
     public Transform enemyPainFX;
@@ -27,35 +30,47 @@ public class AISpawner : MonoBehaviour {
     private void Awake()
     {
         if (spawnPoints.Length == 0) Debug.LogError("No spawn points in AIManager!");
+
+        spawnFX.SetActive(false);
     }
 
     void Start () {
-        SpawnNewEnemy();
+        StartCoroutine("SpawnNewEnemy");
         StartCoroutine("reduceCD");
 	}
 
-    void SpawnNewEnemy()
+    IEnumerator SpawnNewEnemy()
     {
-        Vector3 newLocation = spawnPoints[Random.Range(0, spawnPoints.Length - 1)].position;
-        GameObject go = enemyPoolSpawner.Spawn(transform, newLocation);
-        if (spawnFX != null)
+        while (true)
         {
-            Transform particles = Instantiate(spawnFX, newLocation, Quaternion.identity);
-            Destroy(particles.gameObject, 5f);
-        }
-        Transform newTransform = go.transform;
+            int randomIndex = Random.Range(0, spawnPoints.Length - 1);
+            Vector3 newLocation = spawnPoints[randomIndex].position;
+            spawnFX.transform.position = newLocation;
+            spawnFX.transform.rotation = spawnPoints[randomIndex].rotation;
+            spawnFX.SetActive(true);
 
-        Enemy newEnemy = newTransform.GetComponent<Enemy>();
-        if (newEnemy != null)
-        {
-            enemies.Add(newEnemy);
-            newEnemy.spawner = this;
-            newEnemy.GetComponent<EnemyHealth>().spawner = this;
-            if (target != null) newEnemy.target = target;
-        }
+            yield return new WaitForSeconds(PortalToSpawnDelay);
+            GameObject go = enemyPoolSpawner.Spawn(transform, newLocation);
+            Transform newTransform = go.transform;
 
-        Invoke("SpawnNewEnemy", SpawnInterval);
+            Enemy newEnemy = newTransform.GetComponent<Enemy>();
+            if (newEnemy != null)
+            {
+                enemies.Add(newEnemy);
+                newEnemy.spawner = this;
+                newEnemy.GetComponent<EnemyHealth>().spawner = this;
+                if (target != null) newEnemy.target = target;
+            }
+
+            yield return new WaitForSeconds(PortalDeactivateDelay);
+
+            spawnFX.SetActive(false);
+
+            float waitTime = SpawnInterval - PortalToSpawnDelay - PortalDeactivateDelay;
+            yield return new WaitForSeconds(waitTime > 0f ? waitTime : PortalToSpawnDelay + PortalDeactivateDelay);
+        }
     }
+
     IEnumerator reduceCD()
     {
         while (true)

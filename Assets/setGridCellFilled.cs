@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class setGridCellFilled : MonoBehaviour {
     public Transform gc;
-	// Use this for initialization
+
 	void Start () {
         Invoke("setGridCell", 1f);
 
@@ -15,7 +15,7 @@ public class setGridCellFilled : MonoBehaviour {
         Transform t = gc.Find("Cell" + Mathf.Floor(transform.position.x) + "|" + Mathf.Floor(transform.position.z));
         t.GetComponent<GridCell>().assignChildTransform(transform);
     }
-	// Update is called once per frame
+
 	void Update () {
 		
 	}

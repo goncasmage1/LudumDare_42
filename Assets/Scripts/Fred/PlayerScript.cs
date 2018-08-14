@@ -282,16 +282,6 @@ public class PlayerScript : MonoBehaviour {
         }
 
     }
-    void Use()
-    {
-
-    }
-    void UsePot()
-    {
-
-
-    }
-
 
     void endDash() {
         if (inputDisabled && startDash != -1) {
@@ -307,14 +297,15 @@ public class PlayerScript : MonoBehaviour {
     {
         seedsText.text = ""+seedsNr;
     }
+
     void setHPBar() {
         hpBarImg.fillAmount = HP / maxHP;
     }
+
     void calcWalkSpeed() {
-
         currWalkSpeed = walkSpeed;
-
     }
+
     void Fire() {
         if (currItemType == ItemHeldType.Weapon)
         {
@@ -377,7 +368,8 @@ public class PlayerScript : MonoBehaviour {
                             Destroy(pc.gameObject);
                             myCell.removeTargeted();
                         }
-                        else if (pc.isTowerAndNeedsAmmo()){
+                        else if (pc.isTowerAndNeedsAmmo() && seedsNr > 0)
+                        {
                             pc.reload();
                             seedsNr--;
                         }
@@ -421,7 +413,6 @@ public class PlayerScript : MonoBehaviour {
 
     public void takeDamage(float damage,Vector3 sourcePos)
     {
-        Debug.Log(Vector3.Angle(sourcePos - myTransform.position, lastMoveDir));
         if (isParrying && Vector3.Angle(sourcePos - myTransform.position, lastMoveDir) < blockAngle)
         {
             anim.Play("ANIM_Hero_GuardHit_EDIT", -1, 0f);
@@ -440,7 +431,6 @@ public class PlayerScript : MonoBehaviour {
                 RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_pain", Vector3.zero);
             }
         }
-        Debug.Log( (HP / maxHP));
         emitter.SetParameter("life", (HP / maxHP));
     }
 
