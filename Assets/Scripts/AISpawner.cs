@@ -31,7 +31,10 @@ public class AISpawner : MonoBehaviour {
     {
         if (spawnPoints.Length == 0) Debug.LogError("No spawn points in AIManager!");
 
-        spawnFX.SetActive(false);
+        for (int i = 0; i < spawnPoints.Length; ++i)
+        {
+            spawnPoints[i].GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     void Start () {
@@ -47,7 +50,7 @@ public class AISpawner : MonoBehaviour {
             Vector3 newLocation = spawnPoints[randomIndex].position;
             spawnFX.transform.position = newLocation;
             spawnFX.transform.rotation = spawnPoints[randomIndex].rotation;
-            spawnFX.SetActive(true);
+            spawnPoints[randomIndex].GetChild(0).gameObject.SetActive(true);
 
             yield return new WaitForSeconds(PortalToSpawnDelay);
             GameObject go = enemyPoolSpawner.Spawn(transform, newLocation);
@@ -64,7 +67,7 @@ public class AISpawner : MonoBehaviour {
 
             yield return new WaitForSeconds(PortalDeactivateDelay);
 
-            spawnFX.SetActive(false);
+            spawnPoints[randomIndex].GetChild(0).gameObject.SetActive(false);
 
             float waitTime = SpawnInterval - PortalToSpawnDelay - PortalDeactivateDelay;
             yield return new WaitForSeconds(waitTime > 0f ? waitTime : PortalToSpawnDelay + PortalDeactivateDelay);

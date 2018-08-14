@@ -20,7 +20,11 @@ public class OnTriggerEnterWarnScript : MonoBehaviour {
             EnemyHealth enemyHealth = other.transform.parent.parent.parent.GetComponent<EnemyHealth>();
             if (enemyHealth != null) enemyHealth.ReceiveDamage(damage);
         }
-
+        else if (other.GetComponent<PlantCell>() != null && other.GetComponent<PlantCell>().isTower())
+        {
+            Destroy(other.GetComponent<PlantCell>().gameObject);
+            GetComponentInParent<PlayerScript>().addSeeds(3);
+        }
        
     }
  

@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 10
-  DamageInterval: 0.5
+  DamageInterval: 1
   Lifespan: 6.8
 --- !u!136 &136333421798628854
 CapsuleCollider:

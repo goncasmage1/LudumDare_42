@@ -27,19 +27,20 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] float speedAttackMultiplier = 3f;
     private int attackNumber = 0;
 
-    public Sprite swordSprite;
-    public Sprite pickaxeSprite;
-    public Sprite flowerSprite;
     public GameObject PlantObj;
+    public GameObject plantAndShield;
     private Vector3 directionWhileAttacking;
 
 
     private GameObject canvas;
-    public GameObject deathCanvas;
+    private GameObject deathCanvas;
+    private CanvasGroup lowHealthOverlay;
     private Image hpBarImg;
     private Text seedsText;
     private Text enemiesText;
 
+    public float lowHealthFadeSpeed = 2f;
+    private bool lowHealth = false;
     private float currWalkSpeed;
     private float startFireTarget = -1f;
     private Image aimTargetImage;
@@ -93,8 +94,11 @@ public class PlayerScript : MonoBehaviour {
             canvas = GameObject.FindGameObjectWithTag("Canvas");
         if (canvas == null) Debug.LogError("Couldn't find Canvas!");
         if (deathCanvas == null)
-            deathCanvas = canvas.transform.GetChild(4).gameObject;
+            deathCanvas = canvas.transform.GetChild(5).gameObject;
         if (deathCanvas == null) Debug.LogError("Couldn't find Death Canvas!");
+        if (lowHealthOverlay == null)
+            lowHealthOverlay = canvas.transform.GetChild(4).GetComponent<CanvasGroup>();
+        if (lowHealthOverlay == null) Debug.LogError("Couldn't find Health Overlay!");
         deathCanvas.SetActive(false);
         if (hpBarImg==null)
             hpBarImg = canvas.transform.GetChild(1).GetComponent<Image>();
@@ -121,6 +125,14 @@ public class PlayerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (lowHealth && lowHealthOverlay.alpha < 1f)
+        {
+            lowHealthOverlay.alpha += (Time.deltaTime * lowHealthFadeSpeed);
+        }
+        else if (!lowHealth && lowHealthOverlay.alpha > 0f)
+        {
+            lowHealthOverlay.alpha -= (Time.deltaTime * lowHealthFadeSpeed);
+        }
         if (gInput.GetInput())
         {
             if (!inputDisabled) {
@@ -228,6 +240,7 @@ public class PlayerScript : MonoBehaviour {
                 if (currItemType == ItemHeldType.Seed)
                 {
                     currItemType = ItemHeldType.Weapon;
+                    plantAndShield.SetActive(true);
                     isShowingCellTargetting = false;
                     isPlacingPlant = false;
                     myCellTargetting.hideTargetting();
@@ -235,6 +248,7 @@ public class PlayerScript : MonoBehaviour {
                 else
                 {
                     currItemType = ItemHeldType.Seed;
+                    plantAndShield.SetActive(false);
                     isPlacingPlant = true;
 
                     if (!inputDisabled)
@@ -279,6 +293,12 @@ public class PlayerScript : MonoBehaviour {
         {
             HP = Mathf.Min(maxHP, HP + maxHP/4);
             seedsNr--;
+            setUI();
+
+            if (HP > 20f && lowHealth)
+            {
+                lowHealth = false;
+            }
         }
 
     }
@@ -300,6 +320,7 @@ public class PlayerScript : MonoBehaviour {
 
     void setHPBar() {
         hpBarImg.fillAmount = HP / maxHP;
+        Debug.Log(HP);
     }
 
     void calcWalkSpeed() {
@@ -309,7 +330,6 @@ public class PlayerScript : MonoBehaviour {
     void Fire() {
         if (currItemType == ItemHeldType.Weapon)
         {
-
             if (attackNumber < 3)
             {
                 if (directionWhileAttacking != Vector3.zero)
@@ -349,6 +369,7 @@ public class PlayerScript : MonoBehaviour {
                         RuntimeManager.PlayOneShot("event:/SFX/UI/seed_plant", Vector3.zero);
                         GameObject go = Instantiate(PlantObj, myCell.transform);
                         myCell.assignChildTransform(go.transform);
+                        setUI();
                     }
                     else
                     {
@@ -373,7 +394,7 @@ public class PlayerScript : MonoBehaviour {
                             pc.reload();
                             seedsNr--;
                         }
-                        
+                        setUI();
                     }
                 }
                 
@@ -383,6 +404,11 @@ public class PlayerScript : MonoBehaviour {
 
 	}
    
+    public void addSeeds(int amount)
+    {
+        seedsNr += amount;
+        setUI();
+    }
 
 	void aimTarget(){
 	/*	if (startFireTarget!=-1){
@@ -407,6 +433,10 @@ public class PlayerScript : MonoBehaviour {
         }
         else
         {
+            if (HP <= 20f && !lowHealth)
+            {
+                lowHealth = true;
+            }
             RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_pain", Vector3.zero);
         }
 	}
@@ -428,6 +458,10 @@ public class PlayerScript : MonoBehaviour {
             }
             else
             {
+                if (HP <= 20f && !lowHealth)
+                {
+                    lowHealth = true;
+                }
                 RuntimeManager.PlayOneShot("event:/SFX/Main Char/VO/vo_mainchar_pain", Vector3.zero);
             }
         }

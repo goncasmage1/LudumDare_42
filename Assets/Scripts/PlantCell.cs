@@ -216,6 +216,12 @@ public class PlantCell : MonoBehaviour {
         ammo = maxAmmo;
         updateAmmoUI();
     }
+
+    public bool isTower()
+    {
+        return plantStage == PlantStage.Tower;
+    }
+
     public bool isTowerAndNeedsAmmo()
     {
         return (ammo < maxAmmo && plantStage == PlantStage.Tower); 

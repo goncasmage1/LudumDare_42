@@ -219,6 +219,7 @@ MonoBehaviour:
   childTransform: {fileID: 0}
   hasRipePlant: 0
   isBlockedToPlants: 0
+  hasTower: 0
   arrow: {fileID: 1416979035974248}
 --- !u!114 &114875884547053470
 MonoBehaviour:
@@ -317,7 +318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 61, y: -8, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.06, y: 0.91}
+  m_AnchoredPosition: {x: 0.06, y: 2}
   m_SizeDelta: {x: 1148, y: 535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224954249034199146
