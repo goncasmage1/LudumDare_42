@@ -176,6 +176,7 @@ public class Enemy : MonoBehaviour {
         if (waitingForImpact)
         {
             anim.SetBool("Attacking", false);
+            Debug.Log("Stop animation!");
         }
         isAttacking = false;
 

@@ -12,7 +12,6 @@ public class setGridCellFilled : MonoBehaviour {
 	}
 	void setGridCell()
     {
-        Debug.Log(transform.name);
         Transform t = gc.Find("Cell" + Mathf.Floor(transform.position.x) + "|" + Mathf.Floor(transform.position.z));
         t.GetComponent<GridCell>().assignChildTransform(transform);
     }
